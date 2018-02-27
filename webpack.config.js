@@ -8,7 +8,7 @@ const config = {
   devtool: 'eval-source-map',
 
   entry: {
-    app: './TestApp.jsx',
+    app: './index.js',
   },
 
   devServer: {
