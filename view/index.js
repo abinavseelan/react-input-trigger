@@ -3,9 +3,6 @@ import { render } from 'react-dom';
 
 import InputHandler from '../src';
 
-function handleInput(obj) {
-  console.log(obj);
-}
 class App extends Component {
   constructor() {
     super();
@@ -19,7 +16,7 @@ class App extends Component {
         trigger={{
           keyCode: 65,
         }}
-        onStartHook={handleInput}
+        onStartHook={() => { console.log('triggered'); }}
       >
         <textarea />
       </InputHandler>
