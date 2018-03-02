@@ -17,6 +17,8 @@ class App extends Component {
           keyCode: 65,
         }}
         onStartHook={() => { console.log('triggered'); }}
+        onCancelHook={() => { console.log('de-triggered'); }}
+        endTrigger={(endHandler) => { this.endHandler = endHandler; }}
       >
         <textarea />
       </InputHandler>

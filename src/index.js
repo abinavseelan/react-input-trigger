@@ -29,26 +29,39 @@ class InputTrigger extends Component {
   }
 
   handleTrigger(event) {
-    const { trigger, onStartHook } = this.props;
+    const { trigger, onStartHook, onCancelHook } = this.props;
     const { which } = event;
     const { selectionStart } = event.target;
+    const { triggered, triggerStartPosition } = this.state;
 
-    if (which === trigger.keyCode) {
+    if (!triggered && which === trigger.keyCode) {
       this.setState({
         triggered: true,
-        triggerStartPosition: selectionStart,
+        triggerStartPosition: selectionStart + 1,
       }, () => {
         onStartHook(getHookObject(this.element));
+      });
+      return null;
+    }
+
+    if (which === 8 && selectionStart <= triggerStartPosition) {
+      this.setState({
+        triggered: false,
+        triggerStartPosition: null,
+      }, () => {
+        onCancelHook(getHookObject(this.element));
       });
 
       return null;
     }
+
+    return null;
   }
 
   resetState() {
     this.setState({
       triggered: false,
-      triggerStartPosition: null
+      triggerStartPosition: null,
     });
   }
 
@@ -87,6 +100,7 @@ InputTrigger.propTypes = {
     metaKey: PropTypes.bool,
   }),
   onStartHook: PropTypes.func,
+  onCancelHook: PropTypes.func,
   endTrigger: PropTypes.func,
   children: PropTypes.element.isRequired,
   elementRef: PropTypes.element,
@@ -99,7 +113,8 @@ InputTrigger.defaultProps = {
     ctrlKey: false,
     metaKey: false,
   },
-  onStartHook: () => { },
+  onStartHook: () => {},
+  onCancelHook: () => {},
   endTrigger: () => {},
   elementRef: null,
 };
