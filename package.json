@@ -13,7 +13,7 @@
     "success": "echo '✅   Done! 🎉'",
     "start:dev": "webpack-dev-server --progress --colors",
     "build:dev": "webpack --progress --colors",
-    "build:production": "webpack -p",
+    "generate-demo": "NODE_ENV=production webpack -p",
     "test": "-"
   },
   "pre-commit": [

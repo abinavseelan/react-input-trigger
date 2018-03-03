@@ -15,7 +15,9 @@
       padding: 0;
       margin: 0;
       background: #eee;
+    }
 
+    #app {
       display: flex;
       height: 100vh;
       width: 100vw;
@@ -24,7 +26,7 @@
       align-items: center;
     }
 
-    h2 {
+    h2, h4 {
       text-align: center;
       color: #212121;
     }
@@ -48,6 +50,12 @@
       line-height: 1em;
     }
 
+    @media screen and (max-width: 768px) {
+      textarea {
+        width: 100vw;
+      }
+    }
+
     button {
       padding: 12px 24px;
       box-shadow: 0 4px 6px rgba(50,50,93,.11);
@@ -61,5 +69,9 @@
 </head>
 <body>
   <div id="app"></div>
+  <a href="https://github.com/abinavseelan/react-input-trigger">
+    <img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"
+      alt="Fork me on GitHub">
+  </a>
 <script type="text/javascript" src="./app.js"></script></body>
 </html>

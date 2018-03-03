@@ -12,13 +12,13 @@ const config = {
   },
 
   devServer: {
-    contentBase: path.resolve(__dirname, 'build'),
+    contentBase: path.resolve(__dirname, 'docs'),
     hot: true,
   },
 
   output: {
     path: path.resolve(__dirname, 'docs'),
-    publicPath: './',
+    publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
     filename: 'app.js',
   },
 

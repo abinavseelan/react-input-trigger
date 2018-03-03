@@ -165,3 +165,17 @@ This prop takes a function that returns a function that you need to keep in your
   }
 >
 ```
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
+<!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/6417910?s=400&v=4" width="100px;"/><br /><sub><b>Abinav Seelan</b></sub>](https://abinavseelan.com)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Code") [📖](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/6426069?s=400&v=4" width="100px;"/><br /><sub><b>Aditi Mohanty</b></sub>](https://github.com/rheaditi)<br />[📖](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Documentation")|
+| :---: | :---: | :---: | :---: | :---: | :---: |
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

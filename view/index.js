@@ -65,6 +65,9 @@ class App extends Component {
               null
             )
         }
+        <h4>
+          View on <a href="https://github.com/abinavseelan/react-input-trigger">Github!</a>
+        </h4>
       </div>
     );
   }
