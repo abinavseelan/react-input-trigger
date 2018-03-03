@@ -12,6 +12,8 @@ The component provides the following hooks:
 
 The hooks pass some meta-data such as the cursor position and/or the text that has been typed since the trigger has been activated.
 
+![reactinputtrigger](https://user-images.githubusercontent.com/6417910/36937827-0e615e4e-1f3f-11e8-9623-c4141bda3d2e.gif)
+
 ## Demo
 
 Check out [Insert link here]()
