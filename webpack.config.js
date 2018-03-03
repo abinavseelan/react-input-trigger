@@ -17,8 +17,8 @@ const config = {
   },
 
   output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    path: path.resolve(__dirname, 'docs'),
+    publicPath: './',
     filename: 'app.js',
   },
 
