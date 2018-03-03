@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-function getHookObject(element) {
-  return {
+function getHookObject(element, startPoint) {
+  const result = {
     cursor: {
       selectionStart: element.selectionStart,
       selectionEnd: element.selectionEnd,
     },
   };
+
+  if (!startPoint) {
+    return result;
+  }
+
+  result.text = element.value.substr(startPoint, element.selectionStart);
+
+  return result;
 }
 
 class InputTrigger extends Component {
@@ -29,40 +37,57 @@ class InputTrigger extends Component {
   }
 
   handleTrigger(event) {
-    const { trigger, onStartHook, onCancelHook } = this.props;
+    const {
+      trigger,
+      onStartHook,
+      onCancelHook,
+      onTypeHook,
+    } = this.props;
+
     const {
       which,
       shiftKey,
       metaKey,
       ctrlKey,
     } = event;
+
     const { selectionStart } = event.target;
     const { triggered, triggerStartPosition } = this.state;
 
-    if (!triggered &&
-      which === trigger.keyCode &&
-      shiftKey === !!trigger.shiftKey &&
-      ctrlKey === !!trigger.ctrlKey &&
-      metaKey === !!trigger.metaKey
-    ) {
-      this.setState({
-        triggered: true,
-        triggerStartPosition: selectionStart + 1,
-      }, () => {
-        onStartHook(getHookObject(this.element));
-      });
-      return null;
-    }
+    if (!triggered) {
+      if (
+        which === trigger.keyCode &&
+        shiftKey === !!trigger.shiftKey &&
+        ctrlKey === !!trigger.ctrlKey &&
+        metaKey === !!trigger.metaKey
+      ) {
+        this.setState({
+          triggered: true,
+          triggerStartPosition: selectionStart + 1,
+        }, () => {
+          setTimeout(() => {
+            onStartHook(getHookObject(this.element));
+          }, 0);
+        });
+        return null;
+      }
+    } else {
+      if (selectionStart && which === 8 && selectionStart <= triggerStartPosition) {
+        this.setState({
+          triggered: false,
+          triggerStartPosition: null,
+        }, () => {
+          setTimeout(() => {
+            onCancelHook(getHookObject(this.element));
+          }, 0);
+        });
 
-    if (which === 8 && selectionStart <= triggerStartPosition) {
-      this.setState({
-        triggered: false,
-        triggerStartPosition: null,
-      }, () => {
-        onCancelHook(getHookObject(this.element));
-      });
+        return null;
+      }
 
-      return null;
+      setTimeout(() => {
+        onTypeHook(getHookObject(this.element, triggerStartPosition));
+      }, 0);
     }
 
     return null;
@@ -111,6 +136,7 @@ InputTrigger.propTypes = {
   }),
   onStartHook: PropTypes.func,
   onCancelHook: PropTypes.func,
+  onTypeHook: PropTypes.func,
   endTrigger: PropTypes.func,
   children: PropTypes.element.isRequired,
   elementRef: PropTypes.element,
@@ -125,6 +151,7 @@ InputTrigger.defaultProps = {
   },
   onStartHook: () => {},
   onCancelHook: () => {},
+  onTypeHook: () => {},
   endTrigger: () => {},
   elementRef: null,
 };
