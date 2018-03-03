@@ -16,7 +16,7 @@ The hooks pass some meta-data such as the cursor position and/or the text that h
 
 ## Demo
 
-Check out [Insert link here]()
+A live demo of this component can be found [here](https://abinavseelan.com/react-input-trigger)
 
 ## Usage
 
