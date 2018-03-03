@@ -1,8 +1,16 @@
 # React Input Trigger
 
-React component for handling triggers inside textareas and input fields. 🐼
+React component for handling character triggers inside textareas and input fields. 🐼
 
-Useful for building application that need Slack-like emoji suggestions (on typing `:`) and Github-like user mentions (on typing `@`).
+Useful for building applications that need Slack-like emoji suggestions (triggered by typing `:`) or Github-like user mentions (triggered by typing `@`).
+
+The component provides the following hooks:
+
+* `onStart`: whenever the trigger is first activated (eg. when `@` is first typed).
+* `onType`: when something is being typed after it's been triggered.
+* `onCancel`: when the trigger is canceled.
+
+The hooks pass some meta-data such as the cursor position and/or the text that has been typed since the trigger has been activated.
 
 ## Demo
 
@@ -12,16 +20,106 @@ Check out [Insert link here]()
 
 ### Getting Started
 
-- Import the component from the package.
+* Import the component from the package.
 
-```js
-import InputTrigger from 'react-input-trigger';
-```
+  ```js
+  import InputTrigger from 'react-input-trigger';
+  ```
 
-- Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
+* Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
 
 ```jsx
 <InputTrigger>
   <textarea />
 </InputTrigger>
+```
+
+## Component Props
+
+`<InputTrigger>` can take in the following props:
+
+### `trigger`
+
+This prop takes an object that defines the trigger. The object can have the following properties
+
+* `keyCode`: This is the character code that will fire the trigger.
+* `shiftKey`: (Optional) Set this to `true` if you need the shift key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+* `ctrlKey`: (Optional) Set this to `true` if you need the ctrl key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+* `metaKey`: (Optional) Set this to `true` if you need the cmd key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+
+```jsx
+<InputTrigger
+  trigger={{
+    keyCode: 50,
+    shiftKey: true,
+  }}
+>
+```
+
+### `onStart`
+
+This prop takes a function that will fire whenever trigger is activated. The function is passed some meta information about the cursor's position that you can use.
+
+```jsx
+<InputTrigger
+  trigger={{
+    keyCode: 50,
+    shiftKey: true,
+  }}
+  onStart={(obj) => { console.log(obj); }}
+>
+```
+
+The parameter `obj` contains the following meta information
+
+```js
+{
+  "hookType": "start",
+  "cursor": {
+    "selectionStart",
+    "selectionEnd",
+    "top",
+    "left",
+    "height"
+  }
+}
+```
+
+### `onCancel`
+
+This prop takes a function that will fire everytime the user presses backspace and removes the trigger from the input section. The function is passed some meta information about the cursor's position that you can use.
+
+The parameter `obj` contains the following meta information
+
+```js
+{
+  "hookType": "cancel",
+  "cursor": {
+    "selectionStart",
+    "selectionEnd",
+    "top",
+    "left",
+    "height"
+  }
+}
+```
+
+### `onType`
+
+This prop takes a function that will trigger everytime the user continues typing after starting the trigger. The function is passed some meta information about the cursor's position, as well as the text that the user has typed after triggering that you can use.
+
+The parameter `obj` contains the following meta information
+
+```js
+{
+  "hookType": "typing",
+  "cursor": {
+    "selectionStart",
+    "selectionEnd",
+    "top",
+    "left",
+    "height"
+  },
+  "text"
+}
 ```
