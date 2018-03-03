@@ -72,7 +72,7 @@ class InputTrigger extends Component {
         return null;
       }
     } else {
-      if (selectionStart && which === 8 && selectionStart <= triggerStartPosition) {
+      if (which === 8 && selectionStart <= triggerStartPosition) {
         this.setState({
           triggered: false,
           triggerStartPosition: null,
