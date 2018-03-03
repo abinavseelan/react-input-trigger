@@ -30,11 +30,21 @@ class InputTrigger extends Component {
 
   handleTrigger(event) {
     const { trigger, onStartHook, onCancelHook } = this.props;
-    const { which } = event;
+    const {
+      which,
+      shiftKey,
+      metaKey,
+      ctrlKey,
+    } = event;
     const { selectionStart } = event.target;
     const { triggered, triggerStartPosition } = this.state;
 
-    if (!triggered && which === trigger.keyCode) {
+    if (!triggered &&
+      which === trigger.keyCode &&
+      shiftKey === !!trigger.shiftKey &&
+      ctrlKey === !!trigger.ctrlKey &&
+      metaKey === !!trigger.metaKey
+    ) {
       this.setState({
         triggered: true,
         triggerStartPosition: selectionStart + 1,

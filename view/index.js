@@ -14,7 +14,8 @@ class App extends Component {
     return (
       <InputHandler
         trigger={{
-          keyCode: 65,
+          keyCode: 50,
+          shiftKey: true,
         }}
         onStartHook={() => { console.log('triggered'); }}
         onCancelHook={() => { console.log('de-triggered'); }}
