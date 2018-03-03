@@ -22,9 +22,9 @@ Check out [Insert link here]()
 
 * Import the component from the package.
 
-  ```js
-  import InputTrigger from 'react-input-trigger';
-  ```
+```js
+import InputTrigger from 'react-input-trigger';
+```
 
 * Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
 
@@ -38,7 +38,7 @@ Check out [Insert link here]()
 
 `<InputTrigger>` can take in the following props:
 
-### `trigger`
+### trigger
 
 This prop takes an object that defines the trigger. The object can have the following properties
 
@@ -56,7 +56,7 @@ This prop takes an object that defines the trigger. The object can have the foll
 >
 ```
 
-### `onStart`
+### onStart
 
 This prop takes a function that will fire whenever trigger is activated. The function is passed some meta information about the cursor's position that you can use.
 
@@ -85,9 +85,19 @@ The parameter `obj` contains the following meta information
 }
 ```
 
-### `onCancel`
+### onCancel
 
 This prop takes a function that will fire everytime the user presses backspace and removes the trigger from the input section. The function is passed some meta information about the cursor's position that you can use.
+
+```jsx
+<InputTrigger
+  trigger={{
+    keyCode: 50,
+    shiftKey: true,
+  }}
+  onCancel={(obj) => { console.log(obj); }}
+>
+```
 
 The parameter `obj` contains the following meta information
 
@@ -104,9 +114,19 @@ The parameter `obj` contains the following meta information
 }
 ```
 
-### `onType`
+### onType
 
 This prop takes a function that will trigger everytime the user continues typing after starting the trigger. The function is passed some meta information about the cursor's position, as well as the text that the user has typed after triggering that you can use.
+
+```jsx
+<InputTrigger
+  trigger={{
+    keyCode: 50,
+    shiftKey: true,
+  }}
+  onType={(obj) => { console.log(obj); }}
+>
+```
 
 The parameter `obj` contains the following meta information
 
@@ -122,4 +142,24 @@ The parameter `obj` contains the following meta information
   },
   "text"
 }
+```
+
+### endTrigger
+
+This prop takes a function that returns a function that you need to keep in your parent component. This returned method needs to be called manually by the parent component whenever you are done using the trigger and want to end the trigger.
+
+```jsx
+<InputTrigger
+  endTrigger={
+    endTriggerHandler => {
+      this.endTriggerHandler = endTriggerHandler;
+
+      /*
+        Now you can call `this.endTriggerHandler`
+        anywhere inside the parent component
+        whenever you want to stop the trigger!
+      */
+    }
+  }
+>
 ```

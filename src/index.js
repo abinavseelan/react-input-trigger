@@ -39,7 +39,7 @@ class InputTrigger extends Component {
     this.element = this.props.elementRef;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.endTrigger(this.resetState);
   }
 
