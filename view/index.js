@@ -44,9 +44,9 @@ class App extends Component {
             keyCode: 50,
             shiftKey: true,
           }}
-          onStartHook={(obj) => { this.setState({ isTriggered: true, obj }); }}
-          onTypeHook={(obj) => { this.setState({ isTriggered: true, obj }); }}
-          onCancelHook={(obj) => { this.setState({ isTriggered: false, obj }); }}
+          onStart={(obj) => { this.setState({ isTriggered: true, obj }); }}
+          onType={(obj) => { this.setState({ isTriggered: true, obj }); }}
+          onCancel={(obj) => { this.setState({ isTriggered: false, obj }); }}
           endTrigger={(endHandler) => { this.endHandler = endHandler; }}
         >
           <textarea placeholder="Type @ to trigger!" />

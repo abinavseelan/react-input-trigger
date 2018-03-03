@@ -46,9 +46,9 @@ class InputTrigger extends Component {
   handleTrigger(event) {
     const {
       trigger,
-      onStartHook,
-      onCancelHook,
-      onTypeHook,
+      onStart,
+      onCancel,
+      onType,
     } = this.props;
 
     const {
@@ -73,7 +73,7 @@ class InputTrigger extends Component {
           triggerStartPosition: selectionStart + 1,
         }, () => {
           setTimeout(() => {
-            onStartHook(getHookObject('start', this.element));
+            onStart(getHookObject('start', this.element));
           }, 0);
         });
         return null;
@@ -85,7 +85,7 @@ class InputTrigger extends Component {
           triggerStartPosition: null,
         }, () => {
           setTimeout(() => {
-            onCancelHook(getHookObject('cancel', this.element));
+            onCancel(getHookObject('cancel', this.element));
           }, 0);
         });
 
@@ -93,7 +93,7 @@ class InputTrigger extends Component {
       }
 
       setTimeout(() => {
-        onTypeHook(getHookObject('typing', this.element, triggerStartPosition));
+        onType(getHookObject('typing', this.element, triggerStartPosition));
       }, 0);
     }
 
@@ -141,9 +141,9 @@ InputTrigger.propTypes = {
     ctrlKey: PropTypes.bool,
     metaKey: PropTypes.bool,
   }),
-  onStartHook: PropTypes.func,
-  onCancelHook: PropTypes.func,
-  onTypeHook: PropTypes.func,
+  onStart: PropTypes.func,
+  onCancel: PropTypes.func,
+  onType: PropTypes.func,
   endTrigger: PropTypes.func,
   children: PropTypes.element.isRequired,
   elementRef: PropTypes.element,
@@ -156,9 +156,9 @@ InputTrigger.defaultProps = {
     ctrlKey: false,
     metaKey: false,
   },
-  onStartHook: () => {},
-  onCancelHook: () => {},
-  onTypeHook: () => {},
+  onStart: () => {},
+  onCancel: () => {},
+  onType: () => {},
   endTrigger: () => {},
   elementRef: null,
 };
