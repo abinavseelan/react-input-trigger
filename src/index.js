@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import getCaretCoordinates from 'textarea-caret';
 
-function getHookObject(element, startPoint) {
+function getHookObject(type, element, startPoint) {
+  const caret = getCaretCoordinates(element, element.selectionEnd);
+
   const result = {
+    hookType: type,
     cursor: {
       selectionStart: element.selectionStart,
       selectionEnd: element.selectionEnd,
+      top: caret.top,
+      left: caret.left,
+      height: caret.height,
     },
   };
 
@@ -66,7 +73,7 @@ class InputTrigger extends Component {
           triggerStartPosition: selectionStart + 1,
         }, () => {
           setTimeout(() => {
-            onStartHook(getHookObject(this.element));
+            onStartHook(getHookObject('start', this.element));
           }, 0);
         });
         return null;
@@ -78,7 +85,7 @@ class InputTrigger extends Component {
           triggerStartPosition: null,
         }, () => {
           setTimeout(() => {
-            onCancelHook(getHookObject(this.element));
+            onCancelHook(getHookObject('cancel', this.element));
           }, 0);
         });
 
@@ -86,7 +93,7 @@ class InputTrigger extends Component {
       }
 
       setTimeout(() => {
-        onTypeHook(getHookObject(this.element, triggerStartPosition));
+        onTypeHook(getHookObject('typing', this.element, triggerStartPosition));
       }, 0);
     }
 

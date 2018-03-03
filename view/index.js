@@ -16,7 +16,27 @@ class App extends Component {
     return (
       <div>
         <h2>
-          {`Is Triggered: ${this.state.isTriggered}`}
+          {`Is Triggered: ${this.state.isTriggered}`}<br />
+          {
+            this.state.isTriggered
+              ? (
+                <button
+                  onClick={() => {
+                    this.setState({
+                      isTriggered: false,
+                      obj: null,
+                    }, () => {
+                      this.endHandler();
+                    });
+                  }}
+                >
+                  End Trigger
+                </button>
+              )
+              : (
+                null
+              )
+          }
         </h2>
 
         <InputHandler
