@@ -18,6 +18,8 @@ The hooks pass some meta-data such as the cursor position and/or the text that h
 
 A live demo of this component can be found [here](https://abinavseelan.com/react-input-trigger)
 
+A detailed guide on using this component to build a Github-style user mentions component [can be found on CampVanilla](https://blog.campvanilla.com/reactjs-input-trigger-github-twitter-mentions-8ad1d878110d).
+
 ## Usage
 
 ### Getting Started
