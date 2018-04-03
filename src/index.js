@@ -121,7 +121,12 @@ class InputTrigger extends Component {
             ? (
               React.Children.map(this.props.children, child => (
                 React.cloneElement(child, {
-                  ref: (element) => { this.element = element; },
+                  ref: (element) => {
+                    this.element = element;
+                    if (typeof child.ref === 'function') {
+                      child.ref(element);
+                    }
+                  },
                 })
               ))
             )
