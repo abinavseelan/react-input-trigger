@@ -1,44 +1,61 @@
 {
   "name": "react-input-trigger",
-  "version": "1.0.2",
   "description": "React component for handling character triggers inside textareas and input fields. 🐼",
-  "main": "src/index.js",
+  "version": "1.1.0",
+  "main": "build/lib/react-input-trigger.js",
+  "module": "build/es/react-input-trigger.js",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
   "author": "Abinav Seelan <abinav.n.seelan@gmail.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
+    "start": "webpack-dev-server --config=webpack.dev.config.js --progress --colors",
+    "prebuild": "npm run clean && cross-env mkdir -p build/es",
+    "prepublish": "npm run build",
+    "build": "run-p build:es build:prod",
+    "build:es": "cross-env BABEL_ENV=es babel src/index.js --out-file build/es/react-input-trigger.js",
+    "build:prod": "webpack --config=webpack.prod.config.js --progress",
+    "test": "npm run build 1> /dev/null && echo '✅   Cool! Builds sucessfully 😅' && npm run clean 1> /dev/null",
     "lint": "echo '🔍   Running linter in fix mode' && eslint . --fix",
     "lint:no-fix": "echo '🔍   Running linter' && eslint .",
     "success": "echo '✅   Done! 🎉'",
-    "start:dev": "webpack-dev-server --progress --colors",
-    "build:dev": "webpack --progress --colors",
-    "generate-demo": "NODE_ENV=production webpack -p",
-    "test": "-"
+    "clean": "rimraf build docs"
   },
+  "files": [
+    "build"
+  ],
   "pre-commit": [
     "lint:no-fix",
     "success"
   ],
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.1.4",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "html-webpack-plugin": "^2.30.1",
+    "npm-run-all": "^4.1.2",
     "pre-commit": "^1.2.2",
-    "react-dom": "^16.2.0",
+    "react": ">=15.6.1",
+    "react-dom": ">=15.6.1",
+    "prop-types": ">=15.6.1",
+    "rimraf": "^2.6.2",
     "webpack": "^3",
-    "webpack-dev-server": "^2"
+    "webpack-dev-server": "^2",
+    "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "prop-types": "^15.6.1",
-    "react": "^16.2.0",
     "textarea-caret": "^3.1.0"
+  },
+  "peerDependencies": {
+    "prop-types": ">=15.6.1",
+    "react": ">=15.6.1"
   }
 }

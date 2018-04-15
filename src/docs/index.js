@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import InputHandler from '../src';
+import InputHandler from '../index';
 
 class App extends Component {
   constructor() {
