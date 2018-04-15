@@ -23,6 +23,7 @@
     "generate-demo": "NODE_ENV=production webpack -p",
     "test": "-"
   },
+  "files": ["build"],
   "pre-commit": [
     "lint:no-fix",
     "success"

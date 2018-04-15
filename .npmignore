@@ -1,8 +1,0 @@
-docs
-.babelrc
-.editorconfig
-.eslintignore
-.eslintrc.js
-.gitignore
-.nvmrc
-webpack.*.js
