@@ -1,7 +1,7 @@
 {
   "name": "react-input-trigger",
   "description": "React component for handling character triggers inside textareas and input fields. 🐼",
-  "version": "1.1.0",
+  "version": "1.0.2",
   "main": "build/lib/react-input-trigger.js",
   "module": "build/es/react-input-trigger.js",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
@@ -21,9 +21,7 @@
     "start": "webpack-dev-server --config=webpack.dev.config.js --progress --colors",
     "test": "npm run build 1> /dev/null && echo '✅   Cool! Builds sucessfully 😅' && npm run clean 1> /dev/null"
   },
-  "files": [
-    "build"
-  ],
+  "files": ["build"],
   "pre-commit": [
     "lint:no-fix",
     "success"
