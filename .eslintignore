@@ -1,4 +1,4 @@
-build/
-node_modules/
-docs/
+build
+node_modules
+docs
 webpack.*.js

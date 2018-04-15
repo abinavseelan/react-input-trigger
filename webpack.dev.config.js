@@ -6,7 +6,7 @@ const merge = require('webpack-merge');
 const commonConfiguration = require('./webpack.common.config');
 
 module.exports = merge(commonConfiguration, {
-  context: path.resolve(__dirname, 'view'),
+  context: path.resolve(__dirname, 'src', 'docs'),
   devtool: 'cheap-eval-source-map', // transformed code (lines only),
   devServer: {
     contentBase: path.resolve(__dirname, 'docs'),
@@ -15,11 +15,11 @@ module.exports = merge(commonConfiguration, {
   output: {
     path: path.resolve(__dirname, 'docs'),
     publicPath: '/',
-    filename: 'app.js',
+    filename: '[name].js',
   },
   plugins: [
     new HtmlWebpackPlugin({ template: './index.html' }),
-    new webpack.NamedModulesPlugin(),
+    new webpack.NamedModulesPlugin(), // for HMR
     new webpack.HotModuleReplacementPlugin(),
   ],
 });
