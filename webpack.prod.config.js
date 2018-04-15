@@ -31,7 +31,7 @@ const docsConfiguration = merge.strategy({ entry: 'replace' })(commonConfigurati
   context: path.resolve(__dirname, 'src', 'docs'),
   output: {
     path: path.resolve(__dirname, 'docs'),
-    publicPath: '/',
+    publicPath: './',
     filename: '[name].[chunkhash:5].js',
   },
   plugins: [
