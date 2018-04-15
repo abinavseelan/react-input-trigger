@@ -12,16 +12,14 @@
     "lint": "echo '🔍   Running linter in fix mode' && eslint . --fix",
     "lint:no-fix": "echo '🔍   Running linter' && eslint .",
     "success": "echo '✅   Done! 🎉'",
-    "start:dev": "webpack-dev-server --progress --colors",
     "clean": "rimraf build docs",
     "prebuild": "npm run clean",
     "build": "run-p build:es build:prod",
     "prebuild:es": "cross-env mkdir -p build/es",
     "build:es": "cross-env BABEL_ENV=es babel src/index.js --out-file build/es/react-input-trigger.js",
     "build:prod": "webpack --config=webpack.prod.config.js --progress",
-    "build:dev": "webpack --config=webpack.dev.config.js --progress --colors",
-    "generate-demo": "NODE_ENV=production webpack -p",
-    "test": "-"
+    "start": "webpack-dev-server --config=webpack.dev.config.js --progress --colors",
+    "test": "npm run build 1> /dev/null && echo '✅   Cool! Builds sucessfully 😅' && npm run clean 1> /dev/null"
   },
   "files": ["build"],
   "pre-commit": [
