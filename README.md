@@ -174,6 +174,10 @@ This prop takes a function that returns a function that you need to keep in your
 >
 ```
 
+### Contributing
+
+Want to fix something, add a new feature or raise an issue? Please read the [contributing guide](https://github.com/abinavseelan/react-input-trigger/blob/master/CONTRIBUTING.md) to get started. :smile:
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):

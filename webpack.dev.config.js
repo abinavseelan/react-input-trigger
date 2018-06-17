@@ -11,7 +11,9 @@ module.exports = merge.strategy({ entry: 'replace' })(commonConfiguration, {
   devtool: 'cheap-eval-source-map', // transformed code (lines only),
   devServer: {
     contentBase: path.resolve(__dirname, 'docs'),
+    port: 3000,
     hot: true,
+    open: true,
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
