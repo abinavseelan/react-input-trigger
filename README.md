@@ -1,6 +1,13 @@
 # React Input Trigger
 
-React component for handling character triggers inside textareas and input fields. 🐼
+
+[![npm](https://img.shields.io/npm/v/react-input-trigger.svg?style=flat-square)](https://www.npmjs.com/package/react-input-trigger)
+[![npm](https://img.shields.io/npm/l/react-input-trigger.svg?style=flat-square)](https://github.com/abinavseelan/react-input-trigger)
+[![npm](https://img.shields.io/npm/dt/react-input-trigger.svg?style=flat-square)](https://www.npmjs.com/package/react-input-trigger)
+
+> React component for handling character triggers inside textareas and input fields. 🐼
+
+## Description
 
 Useful for building applications that need Slack-like emoji suggestions (triggered by typing `:`) or Github-like user mentions (triggered by typing `@`).
 
