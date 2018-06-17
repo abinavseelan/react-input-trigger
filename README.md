@@ -201,8 +201,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/6417910?s=400&v=4" width="100px;"/><br /><sub><b>Abinav Seelan</b></sub>](https://abinavseelan.com)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Code") [📖](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/6426069?s=400&v=4" width="100px;"/><br /><sub><b>Aditi Mohanty</b></sub>](https://github.com/rheaditi)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Code") [📖](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Documentation") |
-| :---: | :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/6417910?s=200&v=4" width="100px;"/><br /><sub><b>Abinav Seelan</b></sub>](https://abinavseelan.com)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Code") [📖](https://github.com/abinavseelan/react-input-trigger/commits?author=abinavseelan "Documentation") | [<img src="https://avatars0.githubusercontent.com/u/6426069?s=200&v=4" width="100px;"/><br /><sub><b>Aditi Mohanty</b></sub>](https://github.com/rheaditi)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=rheaditi "Code") [📖](https://github.com/abinavseelan/react-input-trigger/commits?author=rheaditi "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/6963212?s=200&v=4" width="100px;"/><br /><sub><b>Adam Goldman</b></sub>](https://github.com/goldylucks)<br />[💻](https://github.com/abinavseelan/react-input-trigger/commits?author=goldylucks "Code") |
+| :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
