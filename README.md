@@ -23,7 +23,7 @@ The hooks pass some meta-data such as the cursor position and/or the text that h
 
 ## Demo
 
-A live demo of this component can be found [here](https://abinavseelan.com/react-input-trigger)
+A live demo of this component can be found [here](https://abinavseelan.com/react-input-trigger).
 
 A detailed guide on using this component to build a Github-style user mentions component [can be found on CampVanilla](https://blog.campvanilla.com/reactjs-input-trigger-github-twitter-mentions-8ad1d878110d).
 
@@ -35,7 +35,6 @@ A detailed guide on using this component to build a Github-style user mentions c
 ```bash
 $ npm install react-input-trigger
 ```
-
 
 * Import the component from the package.
 
@@ -49,6 +48,16 @@ import InputTrigger from 'react-input-trigger';
 <InputTrigger>
   <textarea />
 </InputTrigger>
+```
+
+---
+
+Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js):
+```html
+<script 
+  src="https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js" 
+  type="text/javascript">
+</script>
 ```
 
 ## Component Props
