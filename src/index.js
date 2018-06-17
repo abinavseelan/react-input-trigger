@@ -108,13 +108,23 @@ class InputTrigger extends Component {
   }
 
   render() {
-    const { elementRef, children } = this.props;
+    const {
+      elementRef,
+      children,
+      trigger,
+      onStart,
+      onCancel,
+      onType,
+      endTrigger,
+      ...rest
+    } = this.props;
 
     return (
       <div
-        role="button"
+        role="textbox"
         tabIndex={-1}
         onKeyDown={this.handleTrigger}
+        {...rest}
       >
         {
           !elementRef
