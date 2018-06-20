@@ -190,7 +190,7 @@ This prop takes a function that returns a function that you need to keep in your
 >
 ```
 
-### Contributing
+## Contributing
 
 Want to fix something, add a new feature or raise an issue? Please read the [contributing guide](https://github.com/abinavseelan/react-input-trigger/blob/master/CONTRIBUTING.md) to get started. :smile:
 
