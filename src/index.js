@@ -53,6 +53,7 @@ class InputTrigger extends Component {
 
     const {
       which,
+      key,
       shiftKey,
       metaKey,
       ctrlKey,
@@ -63,7 +64,8 @@ class InputTrigger extends Component {
 
     if (!triggered) {
       if (
-        which === trigger.keyCode &&
+        (key === trigger.key ||
+        which === trigger.keyCode) &&
         shiftKey === !!trigger.shiftKey &&
         ctrlKey === !!trigger.ctrlKey &&
         metaKey === !!trigger.metaKey
@@ -151,6 +153,7 @@ class InputTrigger extends Component {
 
 InputTrigger.propTypes = {
   trigger: PropTypes.shape({
+    key: PropTypes.string,
     keyCode: PropTypes.number,
     shiftKey: PropTypes.bool,
     ctrlKey: PropTypes.bool,
@@ -166,6 +169,7 @@ InputTrigger.propTypes = {
 
 InputTrigger.defaultProps = {
   trigger: {
+    key: null,
     keyCode: null,
     shiftKey: false,
     ctrlKey: false,
