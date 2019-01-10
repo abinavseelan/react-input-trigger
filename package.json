@@ -30,6 +30,7 @@
     "success"
   ],
   "devDependencies": {
+    "@types/react": "^16.7.18",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
