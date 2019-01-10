@@ -4,7 +4,7 @@
   "version": "1.1.2",
   "main": "build/lib/react-input-trigger.js",
   "module": "build/es/react-input-trigger.js",
-  "types": "src/index.d.ts",
+  "types": "index.d.ts",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
   "author": "Abinav Seelan <abinav.n.seelan@gmail.com>",
   "license": "MIT",
