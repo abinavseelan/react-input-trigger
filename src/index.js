@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import getCaretCoordinates from 'textarea-caret';
 
-function getHookObject(type, element, startPoint) {
-  const caret = getCaretCoordinates(element, element.selectionEnd);
-
-  const result = {
-    hookType: type,
-    cursor: {
-      selectionStart: element.selectionStart,
-      selectionEnd: element.selectionEnd,
-      top: caret.top,
-      left: caret.left,
-      height: caret.height,
-    },
-  };
-
-  if (!startPoint) {
-    return result;
-  }
-
-  result.text = element.value.substr(startPoint, element.selectionStart);
-
-  return result;
-}
+import { getHookObject } from './utils';
 
 class InputTrigger extends Component {
   constructor(args) {
@@ -36,11 +14,21 @@ class InputTrigger extends Component {
 
     this.handleTrigger = this.handleTrigger.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.element = this.props.elementRef;
+    this.setRef = this.setRef.bind(this);
+
+    this.element = null;
   }
 
   componentDidMount() {
     this.props.endTrigger(this.resetState);
+  }
+
+  setRef(element) {
+    if (element && Object.hasOwnProperty.call(element, 'current')) {
+      this.element = element.current;
+    } else {
+      this.element = element;
+    }
   }
 
   handleTrigger(event) {
@@ -109,13 +97,12 @@ class InputTrigger extends Component {
 
   render() {
     const {
-      elementRef,
       children,
-      trigger,
-      onStart,
-      onCancel,
-      onType,
       endTrigger,
+      onCancel,
+      onStart,
+      onType,
+      trigger,
       ...rest
     } = this.props;
 
@@ -127,27 +114,7 @@ class InputTrigger extends Component {
         {...rest}
       >
         {
-          !elementRef
-            ? (
-              React.Children.map(this.props.children, child => (
-                React.cloneElement(child, {
-                  ref: (element) => {
-                    this.element = element;
-
-                    const { ref } = child;
-
-                    if (typeof ref === 'function') {
-                      ref(element);
-                    } else if (Object.hasOwnProperty.call(ref, 'current')) {
-                      ref.current = element;
-                    }
-                  },
-                })
-              ))
-            )
-            : (
-              children
-            )
+          children(this.setRef)
         }
       </div>
     );
@@ -166,7 +133,6 @@ InputTrigger.propTypes = {
   onType: PropTypes.func,
   endTrigger: PropTypes.func,
   children: PropTypes.element.isRequired,
-  elementRef: PropTypes.element,
 };
 
 InputTrigger.defaultProps = {
@@ -180,7 +146,6 @@ InputTrigger.defaultProps = {
   onCancel: () => {},
   onType: () => {},
   endTrigger: () => {},
-  elementRef: null,
 };
 
 export default InputTrigger;
