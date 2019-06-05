@@ -133,8 +133,13 @@ class InputTrigger extends Component {
                 React.cloneElement(child, {
                   ref: (element) => {
                     this.element = element;
-                    if (typeof child.ref === 'function') {
-                      child.ref(element);
+
+                    const { ref } = child;
+
+                    if (typeof ref === 'function') {
+                      ref(element);
+                    } else if (Object.hasOwnProperty.call(ref, 'current')) {
+                      ref.current = element;
                     }
                   },
                 })
