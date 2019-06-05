@@ -7,27 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- **Other**
-  - Keep a CHANGELOG.md (#14)
+- Add a [CHANGELOG.md](https://keepachangelog.com) ([#14](https://github.com/abinavseelan/react-input-trigger/pull/14))
 
 ## [1.1.2] - 2018-06-17
 
 - **Issues**
-  - Fixes issue with Child Refs (#2 @goldylucks)
+  - Fix issue with child refs ([#2](https://github.com/abinavseelan/react-input-trigger/pull/2)) - [@goldylucks](https://github.com/goldylucks)
 
 ## [1.1.1] - 2018-06-17
 
 - **Issues**
-  - Fixes styling issues due to intermediate `<div>` (#4)
+  - Fix styling issues due to intermediate `<div>` ([#4](https://github.com/abinavseelan/react-input-trigger/issues/4))
 - **Contributing**
-  - Adds a [Contributing Guide](https://github.com/abinavseelan/react-input-trigger/blob/master/CONTRIBUTING.md) to help others get started with contributing to this project. 😄
+  - Add a [Contributing Guide](https://github.com/abinavseelan/react-input-trigger/blob/master/CONTRIBUTING.md) to help others get started with contributing to this project. 😄
 - **Other**
-  - Locks in port `3000` for development.
+  - Lock in port `3000` for development.
 
 ## [1.1.0] - 2018-04-15
 
 - **Issues**
-  - Fixes #1
+  - Fix [#1](https://github.com/abinavseelan/react-input-trigger/issues/1)
 - **Features**
   - `react-input-trigger` can now be imported via:
     - [CommonJS](http://www.commonjs.org/) (through `package.json`: main)
