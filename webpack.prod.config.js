@@ -28,6 +28,7 @@ const libraryConfiguration = merge(commonConfiguration, {
 
 const docsConfiguration = merge.strategy({ entry: 'replace' })(commonConfiguration, {
   entry: { app: path.resolve(__dirname, 'src', 'docs', 'index.js'), },
+  mode: 'production',
   context: path.resolve(__dirname, 'src', 'docs'),
   output: {
     path: path.resolve(__dirname, 'docs'),

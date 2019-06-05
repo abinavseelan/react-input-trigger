@@ -1,18 +1,7 @@
 {
   "presets": [
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "safari >= 7"
-          ],
-          "node": 8
-        }
-      }
-    ],
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
     "transform-object-rest-spread"

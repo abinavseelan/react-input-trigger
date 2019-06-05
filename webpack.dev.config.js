@@ -7,6 +7,7 @@ const commonConfiguration = require('./webpack.common.config');
 
 module.exports = merge.strategy({ entry: 'replace' })(commonConfiguration, {
   entry: { app: path.resolve(__dirname, 'src', 'docs', 'index.js'), },
+  mode: 'development',
   context: path.resolve(__dirname, 'src', 'docs'),
   devtool: 'cheap-eval-source-map', // transformed code (lines only),
   devServer: {
