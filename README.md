@@ -1,9 +1,12 @@
 # React Input Trigger
 
+[![npm][npm-badge]][npm-url]
+[![license][license-badge]][license-url]
+[![downloads][downloads-badge]][downloads-url]
+[![size][size-badge]][size-url]
 
-[![npm](https://img.shields.io/npm/v/react-input-trigger.svg?style=flat-square)](https://www.npmjs.com/package/react-input-trigger)
-[![npm](https://img.shields.io/npm/l/react-input-trigger.svg?style=flat-square)](https://github.com/abinavseelan/react-input-trigger)
-[![npm](https://img.shields.io/npm/dt/react-input-trigger.svg?style=flat-square)](https://www.npmjs.com/package/react-input-trigger)
+[![deps][deps-badge]][deps-url]
+[![peer-deps][peer-deps-badge]][peer-deps-url]
 
 > React component for handling character triggers inside textareas and input fields. 🐼
 
@@ -30,6 +33,7 @@ A detailed guide on using this component to build a Github-style user mentions c
 ## Usage
 
 ### Getting Started
+
 * Install the component
 
 ```bash
@@ -53,9 +57,10 @@ import InputTrigger from 'react-input-trigger';
 ---
 
 Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js):
+
 ```html
-<script 
-  src="https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js" 
+<script
+  src="https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js"
   type="text/javascript">
 </script>
 ```
@@ -207,3 +212,16 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
+[npm-badge]: https://img.shields.io/npm/v/react-input-trigger.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/react-input-trigger
+[license-badge]: https://img.shields.io/npm/l/react-input-trigger.svg?style=flat-square&color=blue
+[license-url]: https://github.com/abinavseelan/react-input-trigger/blob/master/LICENSE
+[downloads-badge]: https://img.shields.io/npm/dt/react-input-trigger.svg?style=flat-square&color=blue
+[downloads-url]: https://www.npmjs.com/package/react-input-trigger
+[deps-badge]: https://img.shields.io/david/abinavseelan/react-input-trigger.svg?style=flat-square
+[deps-url]: https://david-dm.org/abinavseelan/react-input-trigger
+[peer-deps-badge]: https://img.shields.io/david/peer/abinavseelan/react-input-trigger.svg?style=flat-square
+[peer-deps-url]: https://david-dm.org/abinavseelan/react-input-trigger/peer-status
+[size-badge]: https://img.shields.io/bundlephobia/minzip/react-input-trigger.svg?style=flat-square&label=gzipped
+[size-url]: https://bundlephobia.com/result?p=react-input-trigger
