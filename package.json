@@ -4,6 +4,7 @@
   "version": "1.1.2",
   "main": "build/lib/react-input-trigger.js",
   "module": "build/es/react-input-trigger.js",
+  "types": "index.d.ts",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
   "author": "Abinav Seelan <abinav.n.seelan@gmail.com>",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "success"
   ],
   "devDependencies": {
+    "@types/react": "^16.7.18",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.3",
