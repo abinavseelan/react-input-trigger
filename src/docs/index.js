@@ -41,8 +41,7 @@ class App extends Component {
 
         <InputHandler
           trigger={{
-            keyCode: 50,
-            shiftKey: true,
+            key: "@"
           }}
           onStart={(obj) => { this.setState({ isTriggered: true, obj }); }}
           onType={(obj) => { this.setState({ isTriggered: true, obj }); }}
