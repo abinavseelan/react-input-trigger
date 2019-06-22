@@ -81,6 +81,20 @@ Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trig
 
 `<InputTrigger>` can take in the following props:
 
+### inputRef
+
+`inputRef: () => React.Ref<T>`
+
+**required**
+
+Callback function used to get the ref to the underlying `input`/`textarea` element.
+
+```jsx
+<InputTrigger
+  inputRef={() => this.elementRef;}
+>
+```
+
 ### trigger
 
 This prop takes an object that defines the trigger. The object can have the following properties
