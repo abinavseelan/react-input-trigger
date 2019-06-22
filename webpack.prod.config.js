@@ -41,7 +41,7 @@ const docsConfiguration = merge.strategy({ entry: 'replace' })(
     output: {
       path: path.resolve(__dirname, 'docs'),
       publicPath: './',
-      filename: '[name].[chunkhash:5].js',
+      filename: '[name].[contenthash:5].js',
     },
     plugins: [
       new HtmlWebpackPlugin({ template: './index.html' }),
