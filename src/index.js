@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import getCaretCoordinates from 'textarea-caret';
 
-function getHookObject(type, element, startPoint) {
-  const caret = getCaretCoordinates(element, element.selectionEnd);
-
-  const result = {
-    hookType: type,
-    cursor: {
-      selectionStart: element.selectionStart,
-      selectionEnd: element.selectionEnd,
-      top: caret.top,
-      left: caret.left,
-      height: caret.height,
-    },
-  };
-
-  if (!startPoint) {
-    return result;
-  }
-
-  result.text = element.value.substr(startPoint, element.selectionStart);
-
-  return result;
-}
+import { getHookObject, safeElement } from './utils';
 
 class InputTrigger extends Component {
   constructor(args) {
@@ -36,11 +14,15 @@ class InputTrigger extends Component {
 
     this.handleTrigger = this.handleTrigger.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.element = this.props.elementRef;
+    this.getElement = this.getElement.bind(this);
   }
 
   componentDidMount() {
     this.props.endTrigger(this.resetState);
+  }
+
+  getElement() {
+    return safeElement(this.props.inputRef());
   }
 
   handleTrigger(event) {
@@ -73,7 +55,7 @@ class InputTrigger extends Component {
           triggerStartPosition: selectionStart + 1,
         }, () => {
           setTimeout(() => {
-            onStart(getHookObject('start', this.element));
+            onStart(getHookObject('start', this.getElement()));
           }, 0);
         });
         return null;
@@ -85,7 +67,7 @@ class InputTrigger extends Component {
           triggerStartPosition: null,
         }, () => {
           setTimeout(() => {
-            onCancel(getHookObject('cancel', this.element));
+            onCancel(getHookObject('cancel', this.getElement()));
           }, 0);
         });
 
@@ -93,7 +75,7 @@ class InputTrigger extends Component {
       }
 
       setTimeout(() => {
-        onType(getHookObject('typing', this.element, triggerStartPosition));
+        onType(getHookObject('typing', this.getElement(), triggerStartPosition));
       }, 0);
     }
 
@@ -109,13 +91,13 @@ class InputTrigger extends Component {
 
   render() {
     const {
-      elementRef,
       children,
-      trigger,
-      onStart,
-      onCancel,
-      onType,
       endTrigger,
+      onCancel,
+      onStart,
+      onType,
+      trigger,
+      inputRef,
       ...rest
     } = this.props;
 
@@ -126,24 +108,7 @@ class InputTrigger extends Component {
         onKeyDown={this.handleTrigger}
         {...rest}
       >
-        {
-          !elementRef
-            ? (
-              React.Children.map(this.props.children, child => (
-                React.cloneElement(child, {
-                  ref: (element) => {
-                    this.element = element;
-                    if (typeof child.ref === 'function') {
-                      child.ref(element);
-                    }
-                  },
-                })
-              ))
-            )
-            : (
-              children
-            )
-        }
+        {children}
       </div>
     );
   }
@@ -156,12 +121,14 @@ InputTrigger.propTypes = {
     ctrlKey: PropTypes.bool,
     metaKey: PropTypes.bool,
   }),
+  children: PropTypes.node.isRequired,
+
+  // handlers
   onStart: PropTypes.func,
   onCancel: PropTypes.func,
   onType: PropTypes.func,
   endTrigger: PropTypes.func,
-  children: PropTypes.element.isRequired,
-  elementRef: PropTypes.element,
+  inputRef: PropTypes.func.isRequired,
 };
 
 InputTrigger.defaultProps = {
@@ -171,11 +138,10 @@ InputTrigger.defaultProps = {
     ctrlKey: false,
     metaKey: false,
   },
-  onStart: () => {},
-  onCancel: () => {},
-  onType: () => {},
-  endTrigger: () => {},
-  elementRef: null,
+  onStart: () => { },
+  onCancel: () => { },
+  onType: () => { },
+  endTrigger: () => { },
 };
 
 export default InputTrigger;

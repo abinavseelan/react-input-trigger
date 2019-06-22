@@ -10,6 +10,7 @@ class App extends Component {
     this.state = {
       isTriggered: false,
     };
+    this.inputRef = React.createRef();
   }
 
   render() {
@@ -48,8 +49,12 @@ class App extends Component {
           onType={(obj) => { this.setState({ isTriggered: true, obj }); }}
           onCancel={(obj) => { this.setState({ isTriggered: false, obj }); }}
           endTrigger={(endHandler) => { this.endHandler = endHandler; }}
+          inputRef={() => this.inputRef}
         >
-          <textarea placeholder="Type @ to trigger!" />
+          <textarea
+            placeholder="Type @ to trigger!"
+            ref={this.inputRef}
+          />
         </InputHandler>
 
         {
