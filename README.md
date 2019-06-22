@@ -40,19 +40,31 @@ A detailed guide on using this component to build a Github-style user mentions c
 $ npm install react-input-trigger
 ```
 
-* Import the component from the package.
-
-```js
-import InputTrigger from 'react-input-trigger';
-```
-
-* Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
+* Use `InputTrigger` in a regular class Component:
 
 ```jsx
-<InputTrigger>
-  <textarea />
-</InputTrigger>
+import React from 'react';
+import InputTrigger from 'react-input-trigger';
+
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.inputElement = React.createRef();
+  }
+
+  render() {
+    return (
+      <InputTrigger
+        inputRef={() => this.inputElement}
+      >
+        <textarea ref={this.inputElement} />
+      </InputTrigger>
+    );
+  }
+}
 ```
+
+View the <a href="#other-examples">examples</a> for more.
 
 ---
 
@@ -194,6 +206,60 @@ This prop takes a function that returns a function that you need to keep in your
   }
 >
 ```
+
+## Other Examples
+
+<details>
+ <summary>Setting the inputRef in a React 15+ class Component</summary>
+
+```jsx
+import React from 'react';
+import InputTrigger from 'react-input-trigger';
+
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.inputElement = null;
+  }
+
+  render() {
+    return (
+      <InputTrigger
+        inputRef={() => this.inputElement}
+      >
+        <textarea ref={(node) => this.inputElement = node;} />
+      </InputTrigger>
+    );
+  }
+}
+```
+</details>
+
+<details>
+ <summary>Setting the inputRef in a React 16+ class Component</summary>
+
+```jsx
+import React from 'react';
+import InputTrigger from 'react-input-trigger';
+
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.inputElement = React.createRef();
+  }
+
+  render() {
+    return (
+      <InputTrigger
+        inputRef={() => this.inputElement}
+      >
+        <textarea ref={this.inputElement} />
+      </InputTrigger>
+    );
+  }
+}
+```
+</details>
 
 ## Contributing
 
