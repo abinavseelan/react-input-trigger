@@ -15,8 +15,6 @@ class InputTrigger extends Component {
     this.handleTrigger = this.handleTrigger.bind(this);
     this.resetState = this.resetState.bind(this);
     this.getElement = this.getElement.bind(this);
-
-    this.element = null;
   }
 
   componentDidMount() {
