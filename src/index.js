@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getHookObject } from './utils';
+import { getHookObject, safeElement } from './utils';
 
 class InputTrigger extends Component {
   constructor(args) {
@@ -14,7 +14,7 @@ class InputTrigger extends Component {
 
     this.handleTrigger = this.handleTrigger.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.setRef = this.setRef.bind(this);
+    this.getElement = this.getElement.bind(this);
 
     this.element = null;
   }
@@ -23,12 +23,8 @@ class InputTrigger extends Component {
     this.props.endTrigger(this.resetState);
   }
 
-  setRef(element) {
-    if (element && Object.hasOwnProperty.call(element, 'current')) {
-      this.element = element.current;
-    } else {
-      this.element = element;
-    }
+  getElement() {
+    return safeElement(this.props.inputRef());
   }
 
   handleTrigger(event) {
@@ -61,7 +57,7 @@ class InputTrigger extends Component {
           triggerStartPosition: selectionStart + 1,
         }, () => {
           setTimeout(() => {
-            onStart(getHookObject('start', this.element));
+            onStart(getHookObject('start', this.getElement()));
           }, 0);
         });
         return null;
@@ -73,7 +69,7 @@ class InputTrigger extends Component {
           triggerStartPosition: null,
         }, () => {
           setTimeout(() => {
-            onCancel(getHookObject('cancel', this.element));
+            onCancel(getHookObject('cancel', this.getElement()));
           }, 0);
         });
 
@@ -81,7 +77,7 @@ class InputTrigger extends Component {
       }
 
       setTimeout(() => {
-        onType(getHookObject('typing', this.element, triggerStartPosition));
+        onType(getHookObject('typing', this.getElement(), triggerStartPosition));
       }, 0);
     }
 
@@ -103,6 +99,7 @@ class InputTrigger extends Component {
       onStart,
       onType,
       trigger,
+      inputRef,
       ...rest
     } = this.props;
 
@@ -113,9 +110,7 @@ class InputTrigger extends Component {
         onKeyDown={this.handleTrigger}
         {...rest}
       >
-        {
-          children(this.setRef)
-        }
+        {children}
       </div>
     );
   }
@@ -128,11 +123,14 @@ InputTrigger.propTypes = {
     ctrlKey: PropTypes.bool,
     metaKey: PropTypes.bool,
   }),
+  children: PropTypes.node.isRequired,
+
+  // handlers
   onStart: PropTypes.func,
   onCancel: PropTypes.func,
   onType: PropTypes.func,
   endTrigger: PropTypes.func,
-  children: PropTypes.element.isRequired,
+  inputRef: PropTypes.func.isRequired,
 };
 
 InputTrigger.defaultProps = {
@@ -142,10 +140,10 @@ InputTrigger.defaultProps = {
     ctrlKey: false,
     metaKey: false,
   },
-  onStart: () => {},
-  onCancel: () => {},
-  onType: () => {},
-  endTrigger: () => {},
+  onStart: () => { },
+  onCancel: () => { },
+  onType: () => { },
+  endTrigger: () => { },
 };
 
 export default InputTrigger;

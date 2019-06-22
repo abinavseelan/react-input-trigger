@@ -1,15 +1,29 @@
 /* eslint-disable import/prefer-default-export */
 import getCaretCoordinates from 'textarea-caret';
-
+/**
+ * Runs some soft-validations & triggers warnings accordingly.
+ * @returns {Object} the input/textarea element
+ * @param {Object} element The ref returned via `props.inputRef`
+ */
 export const safeElement = (element) => {
-  if (!element) {
-    console.warn('Element ref not set correctly. Have you forgotten to apply setRef to the element?');
-    return;
+  if (!element || typeof element !== 'object') {
+    console.warn(`
+      react-input-trigger: element ref not set correctly. Did you forget to return the ref in your 'inputRef' function?
+    `);
   }
 
   if (typeof element.selectionEnd === 'undefined' || typeof element.selectionStart === 'undefined') {
-    console.warn('selectionStart and / or selectionEnd is missing in element ref. Please ensure that the setRef method is applied to a valid input or textarea element.');
+    console.warn(`
+      react-input-trigger: selectionStart/selectionEnd is missing in element ref. Please ensure the ref returned from
+      'inputRef' is a valid input or textarea element
+    `);
   }
+
+  if (element && Object.hasOwnProperty.call(element, 'current')) {
+    return element.current;
+  }
+
+  return element;
 };
 
 export const getHookObject = (type, element, startPoint) => {
