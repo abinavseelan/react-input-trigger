@@ -7,12 +7,14 @@ import getCaretCoordinates from 'textarea-caret';
  */
 export const safeElement = (element) => {
   if (!element || typeof element !== 'object') {
+    // eslint-disable-next-line no-console
     console.warn(`
       react-input-trigger: element ref not set correctly. Did you forget to return the ref in your 'inputRef' function?
     `);
   }
 
   if (typeof element.selectionEnd === 'undefined' || typeof element.selectionStart === 'undefined') {
+    // eslint-disable-next-line no-console
     console.warn(`
       react-input-trigger: selectionStart/selectionEnd is missing in element ref. Please ensure the ref returned from
       'inputRef' is a valid input or textarea element
