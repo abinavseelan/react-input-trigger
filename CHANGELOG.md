@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add a [CHANGELOG.md](https://keepachangelog.com) ([#14](https://github.com/abinavseelan/react-input-trigger/pull/14))
 - Upgrade dependencies of packages with vulnerabilities ([#13](https://github.com/abinavseelan/react-input-trigger/pull/13))
+- Fix: Ref handling for wider support ([#16](https://github.com/abinavseelan/react-input-trigger/pull/16))
 
 ## [1.1.2] - 2018-06-17
 
