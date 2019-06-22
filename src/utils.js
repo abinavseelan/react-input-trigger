@@ -1,5 +1,5 @@
-/* eslint-disable import/prefer-default-export */
 import getCaretCoordinates from 'textarea-caret';
+
 /**
  * Runs some soft-validations & triggers warnings accordingly.
  * @returns {Object} the input/textarea element
@@ -26,6 +26,12 @@ export const safeElement = (element) => {
   return element;
 };
 
+/**
+ * Returns the hook object with meta-information regarding the hook.
+ * @param {String} type hook-type
+ * @param {Object} element the input/textarea element
+ * @param {Number} startPoint start of the hook
+ */
 export const getHookObject = (type, element, startPoint) => {
   const caret = getCaretCoordinates(element, element.selectionEnd);
 
