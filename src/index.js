@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { getHookObject, safeElement } from './utils';
+import { getHookObject, safeElement, shouldTrigger } from './utils';
 
 class InputTrigger extends Component {
   constructor(args) {
@@ -33,23 +33,11 @@ class InputTrigger extends Component {
       onType,
     } = this.props;
 
-    const {
-      which,
-      shiftKey,
-      metaKey,
-      ctrlKey,
-    } = event;
-
     const { selectionStart } = event.target;
     const { triggered, triggerStartPosition } = this.state;
 
     if (!triggered) {
-      if (
-        which === trigger.keyCode &&
-        shiftKey === !!trigger.shiftKey &&
-        ctrlKey === !!trigger.ctrlKey &&
-        metaKey === !!trigger.metaKey
-      ) {
+      if (shouldTrigger(event, trigger)) {
         this.setState({
           triggered: true,
           triggerStartPosition: selectionStart + 1,
@@ -115,12 +103,10 @@ class InputTrigger extends Component {
 }
 
 InputTrigger.propTypes = {
-  trigger: PropTypes.shape({
-    keyCode: PropTypes.number,
-    shiftKey: PropTypes.bool,
-    ctrlKey: PropTypes.bool,
-    metaKey: PropTypes.bool,
-  }),
+  trigger: PropTypes.oneOf([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
   children: PropTypes.node.isRequired,
 
   // handlers
@@ -132,12 +118,7 @@ InputTrigger.propTypes = {
 };
 
 InputTrigger.defaultProps = {
-  trigger: {
-    keyCode: null,
-    shiftKey: false,
-    ctrlKey: false,
-    metaKey: false,
-  },
+  trigger: '@',
   onStart: () => { },
   onCancel: () => { },
   onType: () => { },

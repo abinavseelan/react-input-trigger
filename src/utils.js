@@ -1,6 +1,22 @@
 import getCaretCoordinates from 'textarea-caret';
 
 /**
+ * Returns true if the keyboard event matches the trigger.
+ * @param {KeyboardEvent} event The keyboard event
+ * @param {string|string[]} trigger configured trigger
+ */
+export const shouldTrigger = (event, trigger) => {
+  const { key } = event;
+
+  if (typeof trigger === 'string') {
+    return key === trigger;
+  } else if (Array.isArray(trigger)) {
+    return trigger.indexOf(key) !== -1;
+  }
+  return false;
+};
+
+/**
  * Runs some soft-validations & triggers warnings accordingly.
  * @returns {Object} the input/textarea element
  * @param {Object} element The ref returned via `props.inputRef`
