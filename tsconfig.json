@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "module": "ES2015",
+    "target": "es2020",
+    "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "paths": {
+      "@src/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "transpileOnly": true,
+    "forceIsolatedModules": true
+  }
+}
