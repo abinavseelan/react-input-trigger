@@ -14,7 +14,7 @@ interface InputTriggerProps {
 
 const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildren<InputTriggerProps>) => {
   const { children, trigger, onInputTrigger } = props;
-  const triggerRef = React.useRef(createTrigger()).current;
+  const triggerRef = React.useRef(createTrigger(trigger)).current;
 
   useEffect(() => {
     if (typeof props.endTrigger === 'function') {
@@ -23,20 +23,14 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
   }, []);
 
   const handleKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLSpanElement>) => {
-    const {
-      key,
-    } = event;
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
 
-    const {
-      value,
-      selectionEnd,
-    } = target;
+    const { value, selectionEnd } = target;
 
     if (typeof selectionEnd === 'number') {
       const triggered = triggerRef.isTriggered();
       const triggerObject = getCaretCoordinates(target, selectionEnd);
-      if (!triggered && key === trigger.key) {
+      if (!triggered && triggerRef.isStartOfTrigger(event)) {
         triggerRef.startTrigger(selectionEnd as number);
         if (typeof onInputTrigger === 'function') {
           onInputTrigger({

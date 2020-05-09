@@ -6,6 +6,10 @@ export interface Caret {
 
 export interface TriggerConfiguration {
   key: string;
+  shiftKey?: boolean;
+  metaKey?: boolean;
+  ctrlKey?: boolean;
+  altKey?: boolean;
 }
 
 export interface TriggerStartEvent {
