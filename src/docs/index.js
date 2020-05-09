@@ -41,12 +41,9 @@ class App extends Component {
 
         <InputHandler
           trigger={{
-            keyCode: 50,
-            shiftKey: true,
+            key: '@',
           }}
-          onStart={(obj) => { this.setState({ isTriggered: true, obj }); }}
-          onType={(obj) => { this.setState({ isTriggered: true, obj }); }}
-          onCancel={(obj) => { this.setState({ isTriggered: false, obj }); }}
+          onInputTrigger={(obj) => { this.setState({ isTriggered: true, obj})}}
           endTrigger={(endHandler) => { this.endHandler = endHandler; }}
         >
           <textarea placeholder="Type @ to trigger!" />
