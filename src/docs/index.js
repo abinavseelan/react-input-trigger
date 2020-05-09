@@ -41,7 +41,9 @@ class App extends Component {
 
         <InputHandler
           trigger={{
-            key: '@',
+            key: 'm',
+            shiftKey: true,
+            metaKey: true,
           }}
           onInputTrigger={(obj) => { this.setState({ isTriggered: true, obj})}}
           endTrigger={(endHandler) => { this.endHandler = endHandler; }}
