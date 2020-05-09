@@ -1,19 +1,21 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect } from 'react';
+import React, { useEffect, PropsWithChildren } from 'react';
 import PropTypes from 'prop-types';
 import getCaretCoordinates from 'textarea-caret';
 
 import { TriggerConfiguration, TriggerEvent } from '@src/types';
 import { createTrigger } from '@src/trigger';
 
-interface InputTriggerProps {
+interface InputTriggerOwnProps {
   trigger: TriggerConfiguration;
   onInputTrigger?: (data: TriggerEvent) => void;
   endTrigger?: (callback: () => void) => void;
 }
 
+export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & PropsWithChildren<InputTriggerOwnProps>;
+
 const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildren<InputTriggerProps>) => {
-  const { children, trigger, onInputTrigger } = props;
+  const { children, trigger, onInputTrigger, ...rest } = props;
   const triggerRef = React.useRef(createTrigger(trigger)).current;
 
   useEffect(() => {
@@ -56,6 +58,7 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
 
   return (
     <span
+      {...rest}
       onKeyDownCapture={handleKeyDown}
     >
       {children}
