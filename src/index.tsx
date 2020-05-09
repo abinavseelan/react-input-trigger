@@ -3,62 +3,13 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import getCaretCoordinates from 'textarea-caret';
 
-interface Caret {
-  top: number;
-  left: number;
-  height: number;
-}
-
-interface TriggerConfiguration {
-  key: string;
-}
-
-interface TriggerStartEvent {
-  hookType: 'start';
-  cursor: Caret;
-}
-
-interface TriggerKeyboardEvent {
-  hookType: 'typing';
-  cursor: Caret;
-  text: {
-    value: string;
-    content: string;
-  };
-}
-
-interface TriggerCancelEvent {
-  hookType: 'cancel';
-  cursor: Caret;
-  text: {
-    value: string;
-    content: string;
-  };
-}
-
-type TriggerEvent = TriggerStartEvent | TriggerKeyboardEvent | TriggerCancelEvent;
+import { TriggerConfiguration, TriggerEvent } from '@src/types';
+import { createTrigger } from '@src/trigger';
 
 interface InputTriggerProps {
   trigger: TriggerConfiguration;
   onInputTrigger?: (data: TriggerEvent) => void;
   endTrigger?: (callback: () => void) => void;
-}
-
-
-const createTrigger = () => {
-  let triggered = false;
-  let selectionStart: number | null = null;
-
-  const startTrigger = (currentSelectionStart: number) => {
-    triggered = true; selectionStart = currentSelectionStart;
-  };
-
-  const endTrigger = () => { triggered = false; selectionStart = null; };
-
-  const isTriggered = () => triggered === true;
-  const getCurrentSelectionStart = () => selectionStart;
-
-  return { endTrigger, startTrigger, isTriggered, getCurrentSelectionStart };
 }
 
 const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildren<InputTriggerProps>) => {
