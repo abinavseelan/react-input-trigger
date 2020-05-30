@@ -54,11 +54,12 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
     }
   }
 
-  endTrigger = (id) => {
-    endActiveTrigger(id, this.triggers);
-    if (typeof this.props.onInputTrigger === 'function') {
+  endTrigger = () => {
+    const ended = endActiveTrigger(this.triggers);
+
+    if (typeof this.props.onInputTrigger === 'function' && ended) {
       this.props.onInputTrigger({
-        id: id,
+        id: ended.getId(),
         hookType: 'cancel',
       });
     }
@@ -71,11 +72,14 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
 
     if (activeTrigger !== null && onInputTrigger) {
       if (event.key === 'Escape' && escToCancel) {
-        endActiveTrigger(activeTrigger.id, this.triggers);
-        onInputTrigger({
-          id: activeTrigger.id,
-          hookType: 'cancel',
-        });
+        const ended = endActiveTrigger(this.triggers);
+
+        if (ended) {
+          onInputTrigger({
+            id: ended.getId(),
+            hookType: 'cancel',
+          });
+        }
 
         return;
       }

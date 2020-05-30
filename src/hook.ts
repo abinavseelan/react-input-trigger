@@ -17,7 +17,7 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
 
     if (activeTrigger) {
       if (event.key === 'Escape' && options?.escToCancel) {
-        endActiveTrigger(activeTrigger.id, triggersList.current);
+        endActiveTrigger(triggersList.current);
         updateState(null);
 
         return;
@@ -26,8 +26,8 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
     }
   }, []);
 
-  const endTrigger = useCallback((id) => {
-    endActiveTrigger(id, triggersList.current);
+  const endTrigger = useCallback(() => {
+    endActiveTrigger(triggersList.current);
     updateState(null);
   }, []);
 

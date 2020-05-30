@@ -98,9 +98,12 @@ export const checkActiveTrigger = (
   return null;
 };
 
-export const endActiveTrigger = (id: string, triggersList: TriggersState) => {
-  const triggerToEnd = triggersList.find((trigger) => trigger.getId() === id);
+export const endActiveTrigger = (triggersList: TriggersState) => {
+  const triggerToEnd = triggersList.find((trigger) => trigger.isTriggered());
   if (typeof triggerToEnd !== 'undefined') {
     triggerToEnd.endTrigger();
+    return triggerToEnd;
   }
+
+  return;
 };
