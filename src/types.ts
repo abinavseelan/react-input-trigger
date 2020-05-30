@@ -33,10 +33,6 @@ export interface TriggerKeyboardEvent extends TriggerBaseEvent {
 
 export interface TriggerCancelEvent extends TriggerBaseEvent {
   hookType: 'cancel';
-  text: {
-    value: string;
-    content: string;
-  };
 }
 
 export type TriggerEvent = TriggerStartEvent | TriggerKeyboardEvent | TriggerCancelEvent;

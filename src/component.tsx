@@ -59,9 +59,20 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
   handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
     const activeTrigger = checkActiveTrigger(event, this.triggers);
 
-    const { onInputTrigger } = this.props;
+    const { onInputTrigger, escToCancel } = this.props;
 
     if (activeTrigger !== null && onInputTrigger) {
+      if (event.key === 'Escape' && escToCancel) {
+        endActiveTrigger(activeTrigger.id, this.triggers);
+        onInputTrigger({
+          id: activeTrigger.id,
+          hookType: 'cancel',
+          cursor: activeTrigger.cursor,
+        });
+
+        return;
+      }
+
       onInputTrigger(activeTrigger);
     }
   };

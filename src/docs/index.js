@@ -57,11 +57,16 @@ class App extends Component {
             },
           ]}
           onInputTrigger={(trigger) => {
-            this.setState({ trigger });
+            if (trigger.hookType === 'cancel') {
+              this.setState({ trigger:  null })
+            } else {
+              this.setState({ trigger });
+            }
           }}
           endTrigger={(endHandler) => {
             this.endHandler = endHandler;
           }}
+          escToCancel
         >
           <textarea placeholder='Type @ to trigger!' />
         </InputHandler>

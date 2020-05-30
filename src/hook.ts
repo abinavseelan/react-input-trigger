@@ -3,7 +3,11 @@ import React, { useState, useCallback, useRef } from 'react';
 import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigger';
 import { TriggerConfiguration, TriggerEvent } from './types';
 
-const useInputTrigger = (triggers: TriggerConfiguration[]) => {
+interface Options {
+  escToCancel?: boolean;
+}
+
+const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) => {
   const [state, updateState] = useState<TriggerEvent | null>(null);
 
   const triggersList = useRef(generateTriggers(triggers));
@@ -12,6 +16,12 @@ const useInputTrigger = (triggers: TriggerConfiguration[]) => {
     const activeTrigger = checkActiveTrigger(event, triggersList.current);
 
     if (activeTrigger) {
+      if (event.key === 'Escape' && options?.escToCancel) {
+        endActiveTrigger(activeTrigger.id, this.triggers);
+        updateState(null);
+
+        return;
+      }
       updateState(activeTrigger);
     }
   }, []);
