@@ -8,7 +8,7 @@
 [![deps][deps-badge]][deps-url]
 [![peer-deps][peer-deps-badge]][peer-deps-url]
 
-> React component for handling character triggers inside any textarea or input field. 🐼
+React component for handling character triggers inside any textarea or input field. 🐼
 
 ## Description
 
@@ -19,7 +19,7 @@ _v2.x has some significant changes from v1. The v1 documentation can be found [h
 
 ## Getting Started
 
-- Install the component
+Install the package
 
 ```bash
 $ npm install react-input-trigger --save
@@ -27,10 +27,13 @@ $ npm install react-input-trigger --save
 
 There are two exports from the package:
 
-1. `import useInputTriggerHook from 'react-input-trigger/hook';`: Exports a React hook. (Recommended for React >= 16.8)
-2. `import InputTrigger from 'react-input-trigger/component'`: Exports a component to wrap your textarea / input field. (Recommended for React < 16.8 or if you'd prefer a component)
+```js
+import { useInputTriggerHook } from 'react-input-trigger'; // Exports a React hook. (Recommended for React >= 16.8)
 
-## `react-input-trigger/hook`
+import { InputTrigger } from 'react-input-trigger'; // Exports a component to wrap your textarea / input field. (Recommended for React < 16.8 or if you'd prefer a component)
+```
+
+### useInputTriggerHook (React Hook)
 
 ```jsx
 import useInputTriggerHook from 'react-input-trigger/hook';
@@ -58,34 +61,24 @@ const ExampleWithHooks = () => {
   )
 ```
 
-### Hook Values
-
-The following keys are available on the return value of the Hook.
-
-| Value                   | Type                                                    | Default value  | Description                                                                            |
-| --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
-| triggerState                       |    [triggerState]('#triggerState') or `null`     | null           | An object containing meta data about the _trigger_ that was dispatched in the input field / textarea.
-| inputTriggerHandler                       |    Function    |  -           | Handler to listening on _triggers_. Pass this to the `onKeyDown` handler of your input field / text area.
-| endTrigger                       |    Function    |  -           | Call this method if you need to manually end (cancel) a _trigger_.
-
-### Hook Configuration
+**Hook Configuration**
 
 ```jsx
 useInputTrigger(<triggerConfigurations>, <options>);
 ```
 
-**triggerConfiguration**
+_triggerConfiguration_
 
-This parameter expects an array of [TriggerConfigurations]('#triggerConfiguration')
+This parameter expects an array of [TriggerConfigurations](#triggerConfiguration)
 
-**options (optional)**
+_options (optional)_
 
 The hook can take a set of configuration options
 
 
 | Option                   | Type                                                    | Default value  | Description                                                                            |
 | --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
-| escToCancel                       | boolean                                                  | false           | Set this as `true` if you'd like the trigger to be automatically cancelled if the user presses the `Esacape` key.
+| escToCancel                       | boolean                                                  | false           | Set this as `true` if you'd like the trigger to be automatically cancelled if the user presses the `Escape` key.
 
 eg
 
@@ -95,7 +88,18 @@ useInputTrigger(<triggerConfigurations>, {
 });
 ```
 
-## `react-input-trigger/component`
+**Hook Values**
+
+The following keys are available on the return value of the Hook.
+
+| Value                   | Type                                                    | Default value  | Description                                                                            |
+| --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| triggerState                       |    [triggerState](#triggerState) or `null`     | null           | An object containing meta data about the _trigger_ that was dispatched in the input field / textarea.
+| inputTriggerHandler                       |    Function    |  -           | Handler to listening on _triggers_. Pass this to the `onKeyDown` handler of your input field / text area.
+| endTrigger                       |    Function    |  -           | Call this method if you need to manually end (cancel) a _trigger_.
+
+
+### InputTrigger (React Component)
 
 ```jsx
 import InputTrigger from 'react-input-trigger/component';
@@ -131,13 +135,13 @@ class Example extends React.Component {
 }
 ```
 
-### Props
+**Props**
 
 The following keys are available on the return value of the Hook.
 
 | Value                   | Type                                                    | Default value  | Description                                                                            |
 | --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
-| triggers                       |    Array of [TriggerConfigurations]('#triggerConfiguration')     | `[ { key: '@', id: 'mention' } ]` | List of triggers the wrapper component should listen for.
+| triggers                       |    Array of [TriggerConfigurations](#triggerConfiguration)     | `[ { key: '@', id: 'mention' } ]` | List of triggers the wrapper component should listen for.
 | onInputTrigger                       |    Function     | - | Function that returns a `triggerState` when a _trigger_ occurs.
 | endTrigger                       |    Function     | - | Function that returns a callback that you can store and execute whenever you want to manually end an active _trigger_
 
