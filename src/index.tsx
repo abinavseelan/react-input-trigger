@@ -6,11 +6,6 @@ import getCaretCoordinates from 'textarea-caret';
 import { TriggerConfiguration, TriggerEvent } from '@src/types';
 import { generateTriggers } from '@src/trigger';
 
-interface InputTriggerOwnProps {
-  triggers: TriggerConfiguration[];
-  onInputTrigger?: (data: TriggerEvent) => void;
-  endTrigger?: (callback: (id: string) => void) => void;
-}
 
 const noop = () => {};
 
@@ -79,14 +74,7 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
 };
 
 
-InputTrigger.defaultProps = {
-  triggers: [{
-    key: '@',
-    id: 'mention',
-  }],
-  onInputTrigger: noop,
-  endTrigger: noop,
-};
+
 
 InputTrigger.propTypes = {
   triggers: PropTypes.arrayOf(PropTypes.shape({

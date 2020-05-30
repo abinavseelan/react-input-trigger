@@ -1,32 +1,34 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import InputHandler from '../index';
+import InputHandler from '../component';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      isTriggered: false,
+      trigger: null,
     };
   }
 
   render() {
+    const { trigger } = this.state;
+
     return (
       <div>
         <h2>
-          {`Is Triggered: ${this.state.isTriggered}`}<br />
+          {`Is Triggered: ${trigger ? trigger.id : 'none'}`}<br />
           {
-            this.state.isTriggered
+            trigger
               ? (
                 <button
                   onClick={() => {
+                    const { id } = trigger;
                     this.setState({
-                      isTriggered: false,
-                      obj: null,
+                      trigger: null,
                     }, () => {
-                      this.endHandler();
+                      this.endHandler(id);
                     });
                   }}
                 >
@@ -40,23 +42,34 @@ class App extends Component {
         </h2>
 
         <InputHandler
-          trigger={{
-            key: 'm',
-            shiftKey: true,
-            metaKey: true,
-          }}
-          onInputTrigger={(obj) => { this.setState({ isTriggered: true, obj})}}
+          triggers={[
+            {
+              id: 'm-key',
+              key: 'm',
+              shiftKey: true,
+              metaKey: true,
+            },
+            {
+              id: 'mention',
+              key: '@',
+            },
+            {
+              id: 'slash-command',
+              key: '/',
+            }
+          ]}
+          onInputTrigger={(trigger) => { this.setState({ trigger })}}
           endTrigger={(endHandler) => { this.endHandler = endHandler; }}
         >
           <textarea placeholder="Type @ to trigger!" />
         </InputHandler>
 
         {
-          this.state.obj
+          trigger
             ? (
               <pre>
                 {
-                  JSON.stringify(this.state.obj, null, 2)
+                  JSON.stringify(trigger, null, 2)
                 }
               </pre>
             )
