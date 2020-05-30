@@ -1,7 +1,7 @@
 {
   "name": "react-input-trigger",
   "description": "React component for handling character triggers inside textareas and input fields. 🐼",
-  "version": "2.0.0-beta-4",
+  "version": "2.0.0-beta-5",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
