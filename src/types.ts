@@ -5,6 +5,8 @@ export interface Caret {
 }
 
 export interface TriggerConfiguration {
+  /** Unique identifier for the trigger */
+  id: string;
   key: string;
   shiftKey?: boolean;
   metaKey?: boolean;
@@ -12,23 +14,25 @@ export interface TriggerConfiguration {
   altKey?: boolean;
 }
 
-export interface TriggerStartEvent {
-  hookType: 'start';
+export interface TriggerBaseEvent {
   cursor: Caret;
+  id: string;
 }
 
-export interface TriggerKeyboardEvent {
+export interface TriggerStartEvent extends TriggerBaseEvent {
+  hookType: 'start';
+}
+
+export interface TriggerKeyboardEvent extends TriggerBaseEvent {
   hookType: 'typing';
-  cursor: Caret;
   text: {
     value: string;
     content: string;
   };
 }
 
-export interface TriggerCancelEvent {
+export interface TriggerCancelEvent extends TriggerBaseEvent {
   hookType: 'cancel';
-  cursor: Caret;
   text: {
     value: string;
     content: string;

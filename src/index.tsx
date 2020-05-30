@@ -4,23 +4,30 @@ import PropTypes from 'prop-types';
 import getCaretCoordinates from 'textarea-caret';
 
 import { TriggerConfiguration, TriggerEvent } from '@src/types';
-import { createTrigger } from '@src/trigger';
+import { generateTriggers } from '@src/trigger';
 
 interface InputTriggerOwnProps {
-  trigger: TriggerConfiguration;
+  triggers: TriggerConfiguration[];
   onInputTrigger?: (data: TriggerEvent) => void;
-  endTrigger?: (callback: () => void) => void;
+  endTrigger?: (callback: (id: string) => void) => void;
 }
+
+const noop = () => {};
 
 export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & PropsWithChildren<InputTriggerOwnProps>;
 
 const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildren<InputTriggerProps>) => {
-  const { children, trigger, onInputTrigger, ...rest } = props;
-  const triggerRef = React.useRef(createTrigger(trigger)).current;
+  const { children, triggers, onInputTrigger, endTrigger, ...rest } = props;
+  const triggersRef = React.useRef(generateTriggers(triggers)).current;
 
   useEffect(() => {
-    if (typeof props.endTrigger === 'function') {
-      props.endTrigger(() => { triggerRef.endTrigger(); });
+    if (typeof endTrigger === 'function') {
+      endTrigger((id) => {
+        const triggerToEnd = triggersRef.find(trigger => trigger.getId() === id);
+        if (typeof triggerToEnd !== 'undefined') {
+          triggerToEnd.endTrigger();
+        }
+      });
     }
   }, []);
 
@@ -30,28 +37,33 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
     const { value, selectionEnd } = target;
 
     if (typeof selectionEnd === 'number') {
-      const triggered = triggerRef.isTriggered();
+      const triggered = triggersRef.find(trigger => trigger.isTriggered());
       const triggerObject = getCaretCoordinates(target, selectionEnd);
-      if (!triggered && triggerRef.isStartOfTrigger(event)) {
-        triggerRef.startTrigger(selectionEnd as number);
-        if (typeof onInputTrigger === 'function') {
-          onInputTrigger({
-            hookType: 'start',
-            cursor: triggerObject,
-          });
-        }
-      } else if (triggered) {
-        if (typeof onInputTrigger === 'function') {
-          onInputTrigger({
-            hookType: 'typing',
-            cursor: triggerObject,
-            text: {
-              value: value.substring(triggerRef.getCurrentSelectionStart() as number),
-              content: value.substring(triggerRef.getCurrentSelectionStart() as number + 1),
-            },
-          });
-        }
 
+      if (!triggered) {
+        const possibleTrigger = triggersRef.find(trigger => trigger.isStartOfTrigger(event));
+        if (typeof possibleTrigger !=='undefined') {
+          possibleTrigger.startTrigger(selectionEnd as number);
+          if (typeof onInputTrigger === 'function') {
+            onInputTrigger({
+              id: possibleTrigger.getId(),
+              hookType: 'start',
+              cursor: {
+                ...triggerObject
+              },
+            });
+          }
+        }
+      } else if (triggered && typeof onInputTrigger === 'function') {
+        onInputTrigger({
+          id: triggered.getId(),
+          hookType: 'typing',
+          cursor: triggerObject,
+          text: {
+            value: value.substring(triggered.getCurrentSelectionStart() as number),
+            content: value.substring(triggered.getCurrentSelectionStart() as number + 1),
+          },
+        });
       }
     }
   },[]);
@@ -66,10 +78,21 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
   );
 };
 
+
+InputTrigger.defaultProps = {
+  triggers: [{
+    key: '@',
+    id: 'mention',
+  }],
+  onInputTrigger: noop,
+  endTrigger: noop,
+};
+
 InputTrigger.propTypes = {
-  trigger: PropTypes.shape({
+  triggers: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
-  }).isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   onInputTrigger: PropTypes.func,
   endTrigger: PropTypes.func,
 };
