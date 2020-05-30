@@ -17,6 +17,9 @@ const libraryConfiguration = merge(commonConfiguration, {
     libraryTarget: "commonjs2",
   },
   externals,
+  optimization: {
+    minimize: false,
+  }
 });
 console.log("__dirname", __dirname)
 
@@ -37,7 +40,4 @@ const docsConfiguration = merge.strategy({ entry: "replace" })(
   }
 );
 
-module.exports = [
-  libraryConfiguration,
-  docsConfiguration,
-];
+module.exports = docsConfiguration;

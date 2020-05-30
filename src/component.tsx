@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TriggerConfiguration, TriggerEvent } from '@src/types';
+import { TriggerConfiguration, TriggerEvent } from './types';
 import { noop } from './util';
 import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigger';
 

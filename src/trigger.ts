@@ -1,7 +1,7 @@
 import type React from 'react';
 import getCaretCoordinates from 'textarea-caret';
 
-import { TriggerConfiguration, TriggerEvent } from '@src/types';
+import { TriggerConfiguration, TriggerEvent } from './types';
 
 const compare = ['key', 'shiftKey', 'ctrlKey', 'metaKey', 'altKey'];
 
@@ -9,13 +9,17 @@ const getNow = Date.now;
 
 const getTriggerConfiguration = (inputTrigger: TriggerConfiguration) => {
   const trigger: TriggerConfiguration = {
-    id: getNow().toString(),
     shiftKey: undefined,
     metaKey: undefined,
     ctrlKey: undefined,
     altKey: undefined,
     ...inputTrigger,
+  };
+
+  if (typeof trigger.id ==='undefined') {
+    trigger.id =  getNow().toString();
   }
+
   return trigger;
 };
 
