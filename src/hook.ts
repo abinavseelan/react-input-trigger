@@ -28,6 +28,7 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
 
   const endTrigger = useCallback((id) => {
     endActiveTrigger(id, triggersList.current);
+    updateState(null);
   }, []);
 
   return {

@@ -15,16 +15,17 @@ export interface TriggerConfiguration {
 }
 
 export interface TriggerBaseEvent {
-  cursor: Caret;
   id: string;
 }
 
 export interface TriggerStartEvent extends TriggerBaseEvent {
   hookType: 'start';
+  cursor: Caret;
 }
 
 export interface TriggerKeyboardEvent extends TriggerBaseEvent {
   hookType: 'typing';
+  cursor: Caret;
   text: {
     value: string;
     content: string;

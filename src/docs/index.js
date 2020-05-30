@@ -24,14 +24,7 @@ class App extends Component {
             <button
               onClick={() => {
                 const { id } = trigger;
-                this.setState(
-                  {
-                    trigger: null,
-                  },
-                  () => {
-                    this.endHandler(id);
-                  }
-                );
+                this.endHandler(id);
               }}
             >
               End Trigger

@@ -50,11 +50,19 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
 
   componentDidMount() {
     if (typeof this.props.endTrigger === 'function') {
-      this.props.endTrigger((id) => {
-        endActiveTrigger(id, this.triggers);
-      });
+      this.props.endTrigger(this.endTrigger);
     }
   }
+
+  endTrigger = (id) => {
+    endActiveTrigger(id, this.triggers);
+    if (typeof this.props.onInputTrigger === 'function') {
+      this.props.onInputTrigger({
+        id: id,
+        hookType: 'cancel',
+      });
+    }
+  };
 
   handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
     const activeTrigger = checkActiveTrigger(event, this.triggers);
@@ -67,7 +75,6 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
         onInputTrigger({
           id: activeTrigger.id,
           hookType: 'cancel',
-          cursor: activeTrigger.cursor,
         });
 
         return;
