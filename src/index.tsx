@@ -6,10 +6,10 @@ import getCaretCoordinates from 'textarea-caret';
 import { TriggerConfiguration, TriggerEvent } from '@src/types';
 import { generateTriggers } from '@src/trigger';
 
-
 const noop = () => {};
 
-export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & PropsWithChildren<InputTriggerOwnProps>;
+export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> &
+  PropsWithChildren<InputTriggerOwnProps>;
 
 const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildren<InputTriggerProps>) => {
   const { children, triggers, onInputTrigger, endTrigger, ...rest } = props;
@@ -18,7 +18,7 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
   useEffect(() => {
     if (typeof endTrigger === 'function') {
       endTrigger((id) => {
-        const triggerToEnd = triggersRef.find(trigger => trigger.getId() === id);
+        const triggerToEnd = triggersRef.find((trigger) => trigger.getId() === id);
         if (typeof triggerToEnd !== 'undefined') {
           triggerToEnd.endTrigger();
         }
@@ -32,19 +32,19 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
     const { value, selectionEnd } = target;
 
     if (typeof selectionEnd === 'number') {
-      const triggered = triggersRef.find(trigger => trigger.isTriggered());
+      const triggered = triggersRef.find((trigger) => trigger.isTriggered());
       const triggerObject = getCaretCoordinates(target, selectionEnd);
 
       if (!triggered) {
-        const possibleTrigger = triggersRef.find(trigger => trigger.isStartOfTrigger(event));
-        if (typeof possibleTrigger !=='undefined') {
+        const possibleTrigger = triggersRef.find((trigger) => trigger.isStartOfTrigger(event));
+        if (typeof possibleTrigger !== 'undefined') {
           possibleTrigger.startTrigger(selectionEnd as number);
           if (typeof onInputTrigger === 'function') {
             onInputTrigger({
               id: possibleTrigger.getId(),
               hookType: 'start',
               cursor: {
-                ...triggerObject
+                ...triggerObject,
               },
             });
           }
@@ -56,31 +56,27 @@ const InputTrigger: React.FC<InputTriggerProps> = (props: React.PropsWithChildre
           cursor: triggerObject,
           text: {
             value: value.substring(triggered.getCurrentSelectionStart() as number),
-            content: value.substring(triggered.getCurrentSelectionStart() as number + 1),
+            content: value.substring((triggered.getCurrentSelectionStart() as number) + 1),
           },
         });
       }
     }
-  },[]);
+  }, []);
 
   return (
-    <span
-      {...rest}
-      onKeyDownCapture={handleKeyDown}
-    >
+    <span {...rest} onKeyDownCapture={handleKeyDown}>
       {children}
     </span>
   );
 };
 
-
-
-
 InputTrigger.propTypes = {
-  triggers: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired).isRequired,
+  triggers: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
   onInputTrigger: PropTypes.func,
   endTrigger: PropTypes.func,
 };

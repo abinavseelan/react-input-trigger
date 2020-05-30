@@ -9,12 +9,13 @@ module.exports = {
     browser: true,
     node: true,
     es6: true,
+    jest: true,
   },
   parserOptions: {
-    ecmaVersion: 2018,  // Allows for the parsing of modern ECMAScript features
-    sourceType: 'module',  // Allows for the use of imports
+    ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
+    sourceType: 'module', // Allows for the use of imports
     ecmaFeatures: {
-      jsx: true,  // Allows for the parsing of JSX
+      jsx: true, // Allows for the parsing of JSX
     },
   },
   rules: {

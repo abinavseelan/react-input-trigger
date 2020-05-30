@@ -25,6 +25,6 @@ const useInputTrigger = (triggers: TriggerConfiguration[]) => {
     inputTriggerHandler,
     endTrigger,
   };
-}
+};
 
 export default useInputTrigger;

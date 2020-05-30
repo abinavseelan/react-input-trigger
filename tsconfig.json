@@ -8,27 +8,18 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "moduleResolution": "node",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ]
+      "@src/*": ["src/*"]
     },
     "types": ["jest"]
   },
-  "include": [
-    "./src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"],
   "awesomeTypescriptLoaderOptions": {
     "useCache": true,
     "transpileOnly": true,

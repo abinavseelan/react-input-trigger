@@ -9,10 +9,10 @@ module.exports = {
       tsconfig: {
         ...tsconfig.compilerOptions,
         jsx: 'react',
-      }
-    }
+      },
+    },
   },
   moduleNameMapper: {
     '^@src/(.*)$': '<rootDir>/src/$1',
-  }
+  },
 };

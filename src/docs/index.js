@@ -18,27 +18,25 @@ class App extends Component {
     return (
       <div>
         <h2>
-          {`Is Triggered: ${trigger ? trigger.id : 'none'}`}<br />
-          {
-            trigger
-              ? (
-                <button
-                  onClick={() => {
-                    const { id } = trigger;
-                    this.setState({
-                      trigger: null,
-                    }, () => {
-                      this.endHandler(id);
-                    });
-                  }}
-                >
-                  End Trigger
-                </button>
-              )
-              : (
-                null
-              )
-          }
+          {`Is Triggered: ${trigger ? trigger.id : 'none'}`}
+          <br />
+          {trigger ? (
+            <button
+              onClick={() => {
+                const { id } = trigger;
+                this.setState(
+                  {
+                    trigger: null,
+                  },
+                  () => {
+                    this.endHandler(id);
+                  }
+                );
+              }}
+            >
+              End Trigger
+            </button>
+          ) : null}
         </h2>
 
         <InputHandler
@@ -56,29 +54,21 @@ class App extends Component {
             {
               id: 'slash-command',
               key: '/',
-            }
+            },
           ]}
-          onInputTrigger={(trigger) => { this.setState({ trigger })}}
-          endTrigger={(endHandler) => { this.endHandler = endHandler; }}
+          onInputTrigger={(trigger) => {
+            this.setState({ trigger });
+          }}
+          endTrigger={(endHandler) => {
+            this.endHandler = endHandler;
+          }}
         >
-          <textarea placeholder="Type @ to trigger!" />
+          <textarea placeholder='Type @ to trigger!' />
         </InputHandler>
 
-        {
-          trigger
-            ? (
-              <pre>
-                {
-                  JSON.stringify(trigger, null, 2)
-                }
-              </pre>
-            )
-            : (
-              null
-            )
-        }
+        {trigger ? <pre>{JSON.stringify(trigger, null, 2)}</pre> : null}
         <h4>
-          View on <a href="https://github.com/abinavseelan/react-input-trigger">Github!</a>
+          View on <a href='https://github.com/abinavseelan/react-input-trigger'>Github!</a>
         </h4>
       </div>
     );

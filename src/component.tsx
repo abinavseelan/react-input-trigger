@@ -9,29 +9,37 @@ interface InputTriggerOwnProps {
   triggers: TriggerConfiguration[];
   onInputTrigger?: (data: TriggerEvent) => void;
   endTrigger?: (callback: (id: string) => void) => void;
+  escToCancel?: boolean;
 }
 
-export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> & React.PropsWithChildren<InputTriggerOwnProps>;
+export type InputTriggerProps = React.DetailedHTMLProps<React.HtmlHTMLAttributes<HTMLSpanElement>, HTMLSpanElement> &
+  React.PropsWithChildren<InputTriggerOwnProps>;
 export type TriggersState = ReturnType<typeof generateTriggers>;
 
 class ReactInputTrigger extends React.Component<InputTriggerProps> {
   static defaultProps = {
-    triggers: [{
-      key: '@',
-      id: 'mention',
-    }],
+    triggers: [
+      {
+        key: '@',
+        id: 'mention',
+      },
+    ],
     onInputTrigger: noop,
     endTrigger: noop,
-  }
+    escToCancel: false,
+  };
 
   static propTypes = {
-    triggers: PropTypes.arrayOf(PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }).isRequired).isRequired,
+    triggers: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+      }).isRequired
+    ).isRequired,
     onInputTrigger: PropTypes.func,
     endTrigger: PropTypes.func,
-  }
+    escToCancel: PropTypes.bool,
+  };
 
   triggers: TriggersState;
 
@@ -42,9 +50,9 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
 
   componentDidMount() {
     if (typeof this.props.endTrigger === 'function') {
-      this.props.endTrigger(id => {
+      this.props.endTrigger((id) => {
         endActiveTrigger(id, this.triggers);
-      })
+      });
     }
   }
 
@@ -63,10 +71,7 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
     const { children, triggers, onInputTrigger, endTrigger, ...rest } = this.props;
 
     return (
-      <span
-        {...rest}
-        onKeyDownCapture={this.handleKeyDown}
-      >
+      <span {...rest} onKeyDownCapture={this.handleKeyDown}>
         {children}
       </span>
     );

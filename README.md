@@ -16,9 +16,9 @@ Useful for building applications that need Slack-like emoji suggestions (trigger
 
 The component provides the following hooks:
 
-* `onStart`: whenever the trigger is first activated (eg. when `@` is first typed).
-* `onType`: when something is being typed after it's been triggered.
-* `onCancel`: when the trigger is canceled.
+- `onStart`: whenever the trigger is first activated (eg. when `@` is first typed).
+- `onType`: when something is being typed after it's been triggered.
+- `onCancel`: when the trigger is canceled.
 
 The hooks pass some meta-data such as the cursor position and/or the text that has been typed since the trigger has been activated.
 
@@ -34,19 +34,19 @@ A detailed guide on using this component to build a Github-style user mentions c
 
 ### Getting Started
 
-* Install the component
+- Install the component
 
 ```bash
 $ npm install react-input-trigger
 ```
 
-* Import the component from the package.
+- Import the component from the package.
 
 ```js
 import InputTrigger from 'react-input-trigger';
 ```
 
-* Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
+- Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
 
 ```jsx
 <InputTrigger>
@@ -61,8 +61,8 @@ Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trig
 ```html
 <script
   src="https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js"
-  type="text/javascript">
-</script>
+  type="text/javascript"
+></script>
 ```
 
 ## Component Props
@@ -73,10 +73,10 @@ Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trig
 
 This prop takes an object that defines the trigger. The object can have the following properties
 
-* `keyCode`: This is the character code that will fire the trigger.
-* `shiftKey`: (Optional) Set this to `true` if you need the shift key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
-* `ctrlKey`: (Optional) Set this to `true` if you need the ctrl key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
-* `metaKey`: (Optional) Set this to `true` if you need the cmd key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+- `keyCode`: This is the character code that will fire the trigger.
+- `shiftKey`: (Optional) Set this to `true` if you need the shift key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+- `ctrlKey`: (Optional) Set this to `true` if you need the ctrl key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+- `metaKey`: (Optional) Set this to `true` if you need the cmd key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
 
 ```jsx
 <InputTrigger
