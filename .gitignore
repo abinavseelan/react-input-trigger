@@ -30,4 +30,4 @@ package
 
 # dotenv environment variables file
 .env
-
+public
