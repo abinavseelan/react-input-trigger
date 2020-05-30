@@ -11,7 +11,7 @@
   "scripts": {
     "start": "webpack-dev-server --config=webpack.dev.config.js --progress --colors",
     "prebuild": "npm run clean && mkdir -p build/es",
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "build": "run-p build:es build:prod",
     "build:es": "BABEL_ENV=es babel src/index.js --out-file build/es/react-input-trigger.js",
     "build:prod": "webpack --config=webpack.prod.config.js --progress",
