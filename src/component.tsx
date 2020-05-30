@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import getCaretCoordinates from 'textarea-caret';
 
 import { TriggerConfiguration, TriggerEvent } from '@src/types';
 import { noop } from './util';
-import { generateTriggers } from './trigger';
+import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigger';
 
 interface InputTriggerOwnProps {
   triggers: TriggerConfiguration[];
@@ -44,49 +43,18 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
   componentDidMount() {
     if (typeof this.props.endTrigger === 'function') {
       this.props.endTrigger(id => {
-        const triggerToEnd = this.triggers.find(trigger => trigger.getId() === id);
-        if (typeof triggerToEnd !== 'undefined') {
-          triggerToEnd.endTrigger();
-        }
+        endActiveTrigger(id, this.triggers);
       })
     }
   }
 
   handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+    const activeTrigger = checkActiveTrigger(event, this.triggers);
 
-    const { value, selectionEnd } = target;
     const { onInputTrigger } = this.props;
-    if (typeof selectionEnd === 'number') {
-      const triggered = this.triggers.find(trigger => trigger.isTriggered());
-      const triggerObject = getCaretCoordinates(target, selectionEnd);
 
-      if (!triggered) {
-        const possibleTrigger = this.triggers.find(trigger => trigger.isStartOfTrigger(event));
-
-        if (typeof possibleTrigger !=='undefined') {
-          possibleTrigger.startTrigger(selectionEnd as number);
-          if (typeof onInputTrigger === 'function') {
-            onInputTrigger({
-              id: possibleTrigger.getId(),
-              hookType: 'start',
-              cursor: {
-                ...triggerObject
-              },
-            });
-          }
-        }
-      } else if (triggered && typeof onInputTrigger === 'function') {
-        onInputTrigger({
-          id: triggered.getId(),
-          hookType: 'typing',
-          cursor: triggerObject,
-          text: {
-            value: value.substring(triggered.getCurrentSelectionStart() as number),
-            content: value.substring(triggered.getCurrentSelectionStart() as number + 1),
-          },
-        });
-      }
+    if (activeTrigger !== null && onInputTrigger) {
+      onInputTrigger(activeTrigger);
     }
   };
 

@@ -1,5 +1,7 @@
 import type React from 'react';
-import { TriggerConfiguration } from '@src/types';
+import getCaretCoordinates from 'textarea-caret';
+
+import { TriggerConfiguration, TriggerEvent } from '@src/types';
 
 const compare = ['key', 'shiftKey', 'ctrlKey', 'metaKey', 'altKey'];
 
@@ -42,3 +44,51 @@ export const createTrigger = (inputTrigger: TriggerConfiguration) => {
 };
 
 export const generateTriggers = (inputTriggers: TriggerConfiguration[]) => inputTriggers.map(createTrigger);
+
+export type TriggersState = ReturnType<typeof generateTriggers>;
+
+export const checkActiveTrigger = (event: React.KeyboardEvent<HTMLSpanElement>, triggers: TriggersState): TriggerEvent | null => {
+  const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+
+  const { value, selectionEnd } = target;
+
+  if (typeof selectionEnd === 'number') {
+    const triggered = triggers.find(trigger => trigger.isTriggered());
+    const triggerObject = getCaretCoordinates(target, selectionEnd);
+
+    if (!triggered) {
+      const possibleTrigger = triggers.find(trigger => trigger.isStartOfTrigger(event));
+
+      if (typeof possibleTrigger !=='undefined') {
+        possibleTrigger.startTrigger(selectionEnd as number);
+
+        return {
+          id: possibleTrigger.getId(),
+          hookType: 'start',
+          cursor: {
+            ...triggerObject
+          },
+        }
+      }
+    } else if (triggered) {
+      return {
+        id: triggered.getId(),
+        hookType: 'typing',
+        cursor: triggerObject,
+        text: {
+          value: value.substring(triggered.getCurrentSelectionStart() as number),
+          content: value.substring(triggered.getCurrentSelectionStart() as number + 1),
+        },
+      }
+    }
+  }
+
+  return null;
+}
+
+export const endActiveTrigger = (id: string, triggersList: TriggersState) => {
+  const triggerToEnd = triggersList.find(trigger => trigger.getId() === id);
+  if (typeof triggerToEnd !== 'undefined') {
+    triggerToEnd.endTrigger();
+  }
+}
