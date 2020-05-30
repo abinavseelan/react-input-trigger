@@ -8,7 +8,7 @@ import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigge
 interface InputTriggerOwnProps {
   triggers: TriggerConfiguration[];
   onInputTrigger?: (data: TriggerEvent) => void;
-  endTrigger?: (callback: (id: string) => void) => void;
+  endTrigger?: (callback: () => void) => void;
   escToCancel?: boolean;
 }
 

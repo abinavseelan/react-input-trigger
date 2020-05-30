@@ -8,191 +8,197 @@
 [![deps][deps-badge]][deps-url]
 [![peer-deps][peer-deps-badge]][peer-deps-url]
 
-> React component for handling character triggers inside textareas and input fields. 🐼
+> React component for handling character triggers inside any textarea or input field. 🐼
 
 ## Description
 
-Useful for building applications that need Slack-like emoji suggestions (triggered by typing `:`) or Github-like user mentions (triggered by typing `@`).
+Useful for building applications that need to listen on keyboard triggers in text fields, for example Slack-like emoji suggestions (triggered by typing `:`) or Github-like user mentions (triggered by typing `@`). This component is a **drop-in solution** and can be used with existing input fields / textareas.
 
-The component provides the following hooks:
 
-- `onStart`: whenever the trigger is first activated (eg. when `@` is first typed).
-- `onType`: when something is being typed after it's been triggered.
-- `onCancel`: when the trigger is canceled.
+_v2.x has some significant changes from v1. The v1 documentation can be found [here](https://github.com/abinavseelan/react-input-trigger/blob/master/README-v1.md)._
 
-The hooks pass some meta-data such as the cursor position and/or the text that has been typed since the trigger has been activated.
-
-![reactinputtrigger](https://user-images.githubusercontent.com/6417910/36937827-0e615e4e-1f3f-11e8-9623-c4141bda3d2e.gif)
-
-## Demo
-
-A live demo of this component can be found [here](https://abinavseelan.com/react-input-trigger).
-
-A detailed guide on using this component to build a Github-style user mentions component [can be found on CampVanilla](https://blog.campvanilla.com/reactjs-input-trigger-github-twitter-mentions-8ad1d878110d).
-
-## Usage
-
-### Getting Started
+## Getting Started
 
 - Install the component
 
 ```bash
-$ npm install react-input-trigger
+$ npm install react-input-trigger --save
 ```
 
-- Import the component from the package.
+There are two exports from the package:
 
-```js
-import InputTrigger from 'react-input-trigger';
-```
+1. `import useInputTriggerHook from 'react-input-trigger/hook';`: Exports a React hook. (Recommended for React >= 16.8)
+2. `import InputTrigger from 'react-input-trigger/component'`: Exports a component to wrap your textarea / input field. (Recommended for React < 16.8 or if you'd prefer a component)
 
-- Wrap your existing `<textarea />` or `<input />` element with `<InputTrigger />`
+## `react-input-trigger/hook`
 
 ```jsx
-<InputTrigger>
-  <textarea />
-</InputTrigger>
+import useInputTriggerHook from 'react-input-trigger/hook';
+
+const ExampleWithHooks = () => {
+  const { triggerState, inputTriggerHandler, endTrigger } = useInputTrigger([
+    {
+      key: '@',
+      id: 'mention',
+    },
+    {
+      key: '/',
+      id: 'slash-command',
+    },
+  ]);
+
+  return (
+    <>
+      <textarea onKeyDown={inputTriggerHandler} />
+      <pre>{triggerState}</pre>
+      <button onClick={() => endTrigger}>
+        Manually stop trigger
+      </button>
+    </pre>
+  )
 ```
 
----
+### Hook Values
 
-Or get it in the browser directly via [unpkg](https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js):
+The following keys are available on the return value of the Hook.
 
-```html
-<script
-  src="https://unpkg.com/react-input-trigger@latest/build/lib/react-input-trigger.js"
-  type="text/javascript"
-></script>
-```
+| Value                   | Type                                                    | Default value  | Description                                                                            |
+| --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| triggerState                       |    [triggerState]('#triggerState') or `null`     | null           | An object containing meta data about the _trigger_ that was dispatched in the input field / textarea.
+| inputTriggerHandler                       |    Function    |  -           | Handler to listening on _triggers_. Pass this to the `onKeyDown` handler of your input field / text area.
+| endTrigger                       |    Function    |  -           | Call this method if you need to manually end (cancel) a _trigger_.
 
-## Component Props
-
-`<InputTrigger>` can take in the following props:
-
-### trigger
-
-This prop takes an object that defines the trigger. The object can have the following properties
-
-- `keyCode`: This is the character code that will fire the trigger.
-- `shiftKey`: (Optional) Set this to `true` if you need the shift key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
-- `ctrlKey`: (Optional) Set this to `true` if you need the ctrl key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
-- `metaKey`: (Optional) Set this to `true` if you need the cmd key to be pressed along with the `keyCode` to start the trigger. Ignore this property if it's not required.
+### Hook Configuration
 
 ```jsx
-<InputTrigger
-  trigger={{
-    keyCode: 50,
-    shiftKey: true,
-  }}
->
+useInputTrigger(<triggerConfigurations>, <options>);
 ```
 
-### onStart
+**triggerConfiguration**
 
-This prop takes a function that will fire whenever trigger is activated. The function is passed some meta information about the cursor's position that you can use.
+This parameter expects an array of [TriggerConfigurations]('#triggerConfiguration')
+
+**options (optional)**
+
+The hook can take a set of configuration options
+
+
+| Option                   | Type                                                    | Default value  | Description                                                                            |
+| --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| escToCancel                       | boolean                                                  | false           | Set this as `true` if you'd like the trigger to be automatically cancelled if the user presses the `Esacape` key.
+
+eg
 
 ```jsx
-<InputTrigger
-  trigger={{
-    keyCode: 50,
-    shiftKey: true,
-  }}
-  onStart={(obj) => { console.log(obj); }}
->
+useInputTrigger(<triggerConfigurations>, {
+  escToCancel: true,
+});
 ```
 
-The parameter `obj` contains the following meta information
+## `react-input-trigger/component`
 
-```js
-{
-  "hookType": "start",
-  "cursor": {
-    "selectionStart",
-    "selectionEnd",
-    "top",
-    "left",
-    "height"
+```jsx
+import InputTrigger from 'react-input-trigger/component';
+
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.state = { trigger: null };
+  }
+  render() {
+    return (
+      <div>
+        <InputTrigger
+          triggers={[
+            {
+              key: '@',
+              id: 'mention',
+            },
+            {
+              key: '/',
+              id: 'slash-command',
+            },
+          ]}
+          endTrigger={endHandler => { this.endTrigger = endHandler; }}
+          onInputTrigger={trigger => this.setState({ trigger })}
+        >
+          <textarea />
+        </InputTrigger>
+        <button onClick={() => this.endTrigger()}>End Trigger Manually</button>
+      </div>
+    );
   }
 }
 ```
 
-### onCancel
+### Props
 
-This prop takes a function that will fire everytime the user presses backspace and removes the trigger from the input section. The function is passed some meta information about the cursor's position that you can use.
+The following keys are available on the return value of the Hook.
 
-```jsx
-<InputTrigger
-  trigger={{
-    keyCode: 50,
-    shiftKey: true,
-  }}
-  onCancel={(obj) => { console.log(obj); }}
->
-```
+| Value                   | Type                                                    | Default value  | Description                                                                            |
+| --------------------------- | ------------------------------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| triggers                       |    Array of [TriggerConfigurations]('#triggerConfiguration')     | `[ { key: '@', id: 'mention' } ]` | List of triggers the wrapper component should listen for.
+| onInputTrigger                       |    Function     | - | Function that returns a `triggerState` when a _trigger_ occurs.
+| endTrigger                       |    Function     | - | Function that returns a callback that you can store and execute whenever you want to manually end an active _trigger_
 
-The parameter `obj` contains the following meta information
 
-```js
-{
-  "hookType": "cancel",
-  "cursor": {
-    "selectionStart",
-    "selectionEnd",
-    "top",
-    "left",
-    "height"
-  }
-}
-```
+## Deep Dive
 
-### onType
+### TriggerConfiguration
 
-This prop takes a function that will trigger everytime the user continues typing after starting the trigger. The function is passed some meta information about the cursor's position, as well as the text that the user has typed after triggering that you can use.
+<a id="triggerConfiguration"></a>
 
-```jsx
-<InputTrigger
-  trigger={{
-    keyCode: 50,
-    shiftKey: true,
-  }}
-  onType={(obj) => { console.log(obj); }}
->
-```
-
-The parameter `obj` contains the following meta information
+A TriggerConfiguration is an object to defines a _trigger_. React Input Trigger will use this object's definition to listen to keyboard events for _triggers_.
 
 ```js
 {
-  "hookType": "typing",
-  "cursor": {
-    "selectionStart",
-    "selectionEnd",
-    "top",
-    "left",
-    "height"
-  },
-  "text"
+  id: string // a unique identifier for this trigger. Default: Date.now()
+  key: string // the event.key value you want to listen on. Use this tool to find out the `event.key` value: https://keycode.info/
+  shiftKey: boolean // <Optional> Set this as true if you want the shift key to be pressed for the trigger to fire
+  altKey: boolean // <Optional> Set this as true if you want the alt key to be pressed for the trigger to fire
+  metaKey: boolean // <Optional> Set this as true if you want the windows key / cmd key to be pressed for the trigger to fire
+  ctrlKey: boolean // <Optional> Set this as true if you want the ctrl key to be pressed for the trigger to fire
 }
 ```
 
-### endTrigger
+### triggerState
 
-This prop takes a function that returns a function that you need to keep in your parent component. This returned method needs to be called manually by the parent component whenever you are done using the trigger and want to end the trigger.
+<a id="triggerState"></a>
 
-```jsx
-<InputTrigger
-  endTrigger={
-    endTriggerHandler => {
-      this.endTriggerHandler = endTriggerHandler;
+The `triggerState` is an object that is returned when a particular _trigger_ fires. It's value can be one of the following:
 
-      /*
-        Now you can call `this.endTriggerHandler`
-        anywhere inside the parent component
-        whenever you want to stop the trigger!
-      */
-    }
+```ts
+// First occurrence of the trigger
+{
+  id: string // id configured
+  hookType: 'start'
+  cursor: {
+    top: number // css top value for the trigger
+    left: number // css left value for the trigger
+    height: number // css height value for the cursor
   }
->
+}
+
+// On typing after the trigger has started
+{
+  id: string // id configured
+  hookType: 'typing'
+  cursor: {
+    top: number // css top value for the trigger
+    left: number // css left value for the trigger
+    height: number // css height value for the cursor
+  }
+  text: {
+    value: string; // string including the trigger key
+    content: string; // string without the trigger key
+  };
+}
+
+// On cancelling the trigger
+{
+  id: string // id configured
+  hookType: 'cancel'
+}
 ```
 
 ## Contributing
