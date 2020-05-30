@@ -17,7 +17,7 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
 
     if (activeTrigger) {
       if (event.key === 'Escape' && options?.escToCancel) {
-        endActiveTrigger(activeTrigger.id, this.triggers);
+        endActiveTrigger(activeTrigger.id, triggersList.current);
         updateState(null);
 
         return;
