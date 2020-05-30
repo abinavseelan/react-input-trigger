@@ -2,13 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    'react-input-trigger': path.resolve(__dirname, 'src/index.tsx'),
+    'react-input-trigger': path.resolve(__dirname, 'src/index.ts'),
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json', '.d.ts'],
-    alias: {
-      '@src': path.resolve('./src'),
-    },
   },
   module: {
     rules: [

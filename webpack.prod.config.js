@@ -17,6 +17,9 @@ const libraryConfiguration = merge(commonConfiguration, {
     libraryTarget: 'commonjs2',
   },
   externals,
+  optimization: {
+    minimize: false,
+  }
 });
 console.log('__dirname', __dirname);
 
@@ -31,4 +34,4 @@ const docsConfiguration = merge.strategy({ entry: 'replace' })(commonConfigurati
   plugins: [new HtmlWebpackPlugin({ template: './src/docs/index.html' }), new UglifyJsPlugin()],
 });
 
-module.exports = [libraryConfiguration, docsConfiguration];
+module.exports = docsConfiguration;

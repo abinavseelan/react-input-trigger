@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
-    "target": "es2020",
+    "declaration": true,
+    "declarationDir": "build",
+    "module": "esnext",
+    "target": "es6",
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "skipLibCheck": true,
@@ -9,20 +11,12 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "lib": ["dom", "esnext"],
-    "jsx": "preserve",
+    "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "moduleResolution": "node",
-    "paths": {
-      "@src/*": ["src/*"]
-    },
-    "types": ["jest"]
+    "rootDir": "src"
   },
   "include": ["./src/**/*"],
-  "exclude": ["node_modules"],
-  "awesomeTypescriptLoaderOptions": {
-    "useCache": true,
-    "transpileOnly": true,
-    "forceIsolatedModules": true
-  }
+  "exclude": ["node_modules", "build", "src/**/*.test.*"]
 }
