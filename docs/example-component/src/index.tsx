@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { InputTrigger } from 'react-input-trigger';
+import { InputTrigger, EndTriggerMethod } from 'react-input-trigger';
 
 /** Using the component `<InputTrigger />` in a class component. */
 class Example extends React.Component {
-  endTrigger: any; /* TODO: fix the types for endTrigger */
+  endTrigger: EndTriggerMethod = () => {};
   state = { triggerState: null };
 
   render() {
