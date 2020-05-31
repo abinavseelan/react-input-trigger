@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
-import { Tab, Menu, Responsive, Header, Icon } from 'semantic-ui-react';
+import { Tab, Menu, Responsive, Header } from 'semantic-ui-react';
 
 import { ExampleHooks } from './ExampleHooks';
 import { ExampleComponent } from './ExampleComponent';
@@ -11,7 +11,7 @@ const panes = [
     menuItem: (
       <Menu.Item name='useInputTrigger'>
         <Header as='h4'>useInputTrigger</Header>
-        <p>Requires hooks (React >= 16.8)</p>
+        <p>Requires hooks (React {'>='} 16.8)</p>
       </Menu.Item>
     ),
     render: () => <ExampleHooks />,
@@ -20,7 +20,7 @@ const panes = [
     menuItem: (
       <Menu.Item name='InputTrigger'>
         <Header as='h4'>{`<InputTrigger />`}</Header>
-        <p>Works with React >= 15</p>
+        <p>Works with React {'>='} 15</p>
       </Menu.Item>
     ),
     render: () => <ExampleComponent />,

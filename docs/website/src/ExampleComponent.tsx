@@ -89,7 +89,7 @@ export class ExampleComponent extends React.Component {
                 color="red"
                 disabled={!Boolean(this.state.trigger)}
                 onClick={() => {
-                  this.endTrigger();
+                  this.endTrigger('');
                 }}
               >
                 End Trigger Manually

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useInputTrigger } from 'react-input-trigger';
-import { Header, Container, Segment, Button, Grid, Table } from 'semantic-ui-react';
+import { Header, Container, Segment, Button, Grid } from 'semantic-ui-react';
 import { Code } from './Highlighter';
 
 const SimplifiedHookExample = `/** A React function component with hooks */
