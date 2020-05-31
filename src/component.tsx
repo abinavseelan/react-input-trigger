@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TriggerConfiguration, TriggerEvent } from './types';
+import { TriggerConfiguration, TriggerEvent, EndTriggerMethod } from './types';
 import { noop } from './util';
 import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigger';
 
 interface InputTriggerOwnProps {
   triggers: TriggerConfiguration[];
   onInputTrigger?: (data: TriggerEvent) => void;
-  endTrigger?: (callback: () => void) => void;
+  endTrigger?: (fn: EndTriggerMethod) => void;
   escToCancel?: boolean;
 }
 
@@ -66,7 +66,7 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
   };
 
   handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
-    const activeTrigger = checkActiveTrigger(event, this.triggers);
+    const activeTrigger = checkActiveTrigger<HTMLSpanElement>(event, this.triggers);
 
     const { onInputTrigger, escToCancel } = this.props;
 

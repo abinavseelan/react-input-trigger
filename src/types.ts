@@ -37,3 +37,7 @@ export interface TriggerCancelEvent extends TriggerBaseEvent {
 }
 
 export type TriggerEvent = TriggerStartEvent | TriggerKeyboardEvent | TriggerCancelEvent;
+
+export interface EndTriggerMethod {
+  (): void;
+}

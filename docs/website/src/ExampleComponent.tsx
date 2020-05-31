@@ -46,13 +46,14 @@ const triggers = [
 ];
 
 export class ExampleComponent extends React.Component {
-  endTrigger = (id: string) => {};
+  endTrigger = () => {};
   state = {
     trigger: null,
   };
 
   render() {
     const { trigger } = this.state;
+
     return (
       <Container>
         <Header as="h4" content="Example <InputTrigger />" attached="top" />
@@ -89,7 +90,7 @@ export class ExampleComponent extends React.Component {
                 color="red"
                 disabled={!Boolean(this.state.trigger)}
                 onClick={() => {
-                  this.endTrigger('');
+                  this.endTrigger();
                 }}
               >
                 End Trigger Manually

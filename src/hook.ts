@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 
 import { checkActiveTrigger, generateTriggers, endActiveTrigger } from './trigger';
-import { TriggerConfiguration, TriggerEvent } from './types';
+import { TriggerConfiguration, TriggerEvent, EndTriggerMethod } from './types';
 
 interface Options {
   escToCancel?: boolean;
@@ -12,8 +12,8 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
 
   const triggersList = useRef(generateTriggers(triggers));
 
-  const inputTriggerHandler = useCallback((event: React.KeyboardEvent<HTMLSpanElement>) => {
-    const activeTrigger = checkActiveTrigger(event, triggersList.current);
+  const inputTriggerHandler = useCallback(<T = HTMLElement>(event: React.KeyboardEvent<T>) => {
+    const activeTrigger = checkActiveTrigger<T>(event, triggersList.current);
 
     if (activeTrigger) {
       if (event.key === 'Escape' && options?.escToCancel) {
@@ -26,7 +26,7 @@ const useInputTrigger = (triggers: TriggerConfiguration[], options?: Options) =>
     }
   }, []);
 
-  const endTrigger = useCallback(() => {
+  const endTrigger: EndTriggerMethod = useCallback(() => {
     endActiveTrigger(triggersList.current);
     updateState(null);
   }, []);

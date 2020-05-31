@@ -37,6 +37,7 @@ export const createTrigger = (inputTrigger: TriggerConfiguration) => {
     triggered = false;
     selectionStart = null;
   };
+
   const isStartOfTrigger = (event: React.KeyboardEvent) =>
     compare.every((key) => {
       if (trigger[key] === undefined) {
@@ -56,8 +57,8 @@ export const generateTriggers = (inputTriggers: TriggerConfiguration[]) => input
 
 export type TriggersState = ReturnType<typeof generateTriggers>;
 
-export const checkActiveTrigger = (
-  event: React.KeyboardEvent<HTMLSpanElement>,
+export const checkActiveTrigger = <T = HTMLElement>(
+  event: React.KeyboardEvent<T>,
   triggers: TriggersState
 ): TriggerEvent | null => {
   const target = event.target as HTMLInputElement | HTMLTextAreaElement;
@@ -100,10 +101,11 @@ export const checkActiveTrigger = (
 
 export const endActiveTrigger = (triggersList: TriggersState) => {
   const triggerToEnd = triggersList.find((trigger) => trigger.isTriggered());
+
   if (typeof triggerToEnd !== 'undefined') {
     triggerToEnd.endTrigger();
     return triggerToEnd;
   }
 
-  return;
+  return null;
 };
