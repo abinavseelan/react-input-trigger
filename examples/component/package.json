@@ -12,6 +12,13 @@
   },
   "dependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
-  }
+    "react-dom": "^16.13.1",
+    "react-input-trigger": "^2.0.0-beta-5"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
