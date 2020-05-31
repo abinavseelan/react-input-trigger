@@ -13,7 +13,7 @@
     "prebuild": "npm run clean",
     "prepublishOnly": "npm run build",
     "build": "NODE_ENV=production rollup -c rollup.config.js",
-    "build:docs": "cd docs/website && npm install && npm run build",
+    "build:docs": "npm run build && cd docs/website && npm install && npm run build",
     "test": "jest",
     "lint": "echo '🔍   Running linter in fix mode' && eslint . --fix",
     "lint:no-fix": "echo '🔍   Running linter' && eslint .",
