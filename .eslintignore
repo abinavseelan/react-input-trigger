@@ -1,6 +1,6 @@
 build
+dist
 node_modules
-docs
-webpack.*.js
+docs/example-component
+docs/example-hooks
 public
-examples
