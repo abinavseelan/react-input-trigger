@@ -1,5 +1,4 @@
 # Build
-.awcache
 build
 
 # Logs
@@ -13,7 +12,7 @@ yarn-error.log*
 yarn.lock
 
 # Dependency directories
-node_modules/
+node_modules
 
 # Optional npm cache directory
 .npm
@@ -25,9 +24,7 @@ node_modules/
 *.tgz
 package
 
-# Yarn Integrity file
-.yarn-integrity
-
 # dotenv environment variables file
 .env
-public
+
+dist
