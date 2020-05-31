@@ -20,10 +20,7 @@
     "success": "echo '✅   Done! 🎉'",
     "clean": "rimraf dist"
   },
-  "files": [
-    "dist/index.js",
-    "dist/index.es.js"
-  ],
+  "files": [ "dist" ],
   "devDependencies": {
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
