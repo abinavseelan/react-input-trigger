@@ -38,7 +38,7 @@ export const createTrigger = (inputTrigger: TriggerConfiguration) => {
     selectionStart = null;
   };
 
-  const isStartOfTrigger = (event: React.KeyboardEvent) =>
+  const isStartOfTrigger = <T = HTMLElement>(event: React.KeyboardEvent<T>) =>
     compare.every((key) => {
       if (trigger[key] === undefined) {
         return true;
