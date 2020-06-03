@@ -7,9 +7,13 @@
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
   "author": "Abinav Seelan <abinav.n.seelan@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "docs/website",
+    "."
+  ],
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cd docs/website && npm run start",
     "prebuild": "npm run clean",
     "prepublishOnly": "npm run build",
     "build": "NODE_ENV=production rollup -c rollup.config.js",

@@ -14,6 +14,7 @@ React component for handling character triggers inside any textarea or input fie
 
 Useful for building applications that need to listen on keyboard triggers in text fields, for example Slack-like emoji suggestions (triggered by typing `:`) or Github-like user mentions (triggered by typing `@`). This component is a **drop-in solution** and can be used with existing input fields / textareas.
 
+Note: Due to the way [keypress events work on mobile devices](https://stackoverflow.com/questions/45433810/event-key-is-undefined-in-mobile-browsers-for-keyup-keydown-and-keypress), this library will only work with physical keyboards. (PRs welcome!)
 
 _v2.x has some significant changes from v1. The v1 documentation can be found [here](https://github.com/abinavseelan/react-input-trigger/blob/master/README-v1.md)._
 
