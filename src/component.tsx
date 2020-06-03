@@ -90,7 +90,7 @@ class ReactInputTrigger extends React.Component<InputTriggerProps> {
 
   render() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { children, triggers, onInputTrigger, endTrigger, ...rest } = this.props;
+    const { children, triggers, onInputTrigger, endTrigger, escToCancel, ...rest } = this.props;
 
     return (
       <span {...rest} onKeyDownCapture={this.handleKeyDown}>
