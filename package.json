@@ -1,56 +1,56 @@
 {
   "name": "react-input-trigger",
   "description": "React component for handling character triggers inside textareas and input fields. 🐼",
-  "version": "1.1.2",
-  "main": "build/lib/react-input-trigger.js",
-  "module": "build/es/react-input-trigger.js",
+  "version": "2.0.0-beta-7",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
   "repository": "git@github.com:abinavseelan/react-input-trigger.git",
   "author": "Abinav Seelan <abinav.n.seelan@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "docs/website",
+    "."
+  ],
   "scripts": {
-    "start": "webpack-dev-server --config=webpack.dev.config.js --progress --colors",
-    "prebuild": "npm run clean && cross-env mkdir -p build/es",
-    "prepublish": "npm run build",
-    "build": "run-p build:es build:prod",
-    "build:es": "cross-env BABEL_ENV=es babel src/index.js --out-file build/es/react-input-trigger.js",
-    "build:prod": "webpack --config=webpack.prod.config.js --progress",
-    "test": "npm run build 1> /dev/null && echo '✅   Cool! Builds sucessfully 😅' && npm run clean 1> /dev/null",
+    "start": "cd docs/website && npm run start",
+    "prebuild": "npm run clean",
+    "prepublishOnly": "npm run build",
+    "build": "NODE_ENV=production rollup -c rollup.config.js",
+    "build:docs": "cd docs/website && npm install && npm run build",
+    "test": "jest",
     "lint": "echo '🔍   Running linter in fix mode' && eslint . --fix",
     "lint:no-fix": "echo '🔍   Running linter' && eslint .",
     "success": "echo '✅   Done! 🎉'",
-    "clean": "rimraf build docs"
+    "clean": "rimraf dist"
   },
   "files": [
-    "build"
-  ],
-  "pre-commit": [
-    "lint:no-fix",
-    "success"
+    "dist"
   ],
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.3",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "cross-env": "^5.1.4",
-    "eslint": "^4.18.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
-    "html-webpack-plugin": "^2.30.1",
-    "npm-run-all": "^4.1.2",
-    "pre-commit": "^1.2.2",
-    "prop-types": ">=15.6.1",
-    "react": ">=15.6.1",
-    "react-dom": ">=15.6.1",
-    "rimraf": "^2.6.2",
-    "webpack": "^3",
-    "webpack-dev-server": "^2",
-    "webpack-merge": "^4.1.2"
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "@rollup/plugin-typescript": "^4.1.2",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.7",
+    "@types/textarea-caret": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.7",
+    "prettier": "^2.0.5",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.11.2",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "textarea-caret": "^3.1.0"
@@ -58,5 +58,12 @@
   "peerDependencies": {
     "prop-types": ">=15.6.1",
     "react": ">=15.6.1"
-  }
+  },
+  "contributors": [
+    {
+      "name": "Aditi Mohanty",
+      "email": "aditi.anomita@gmail.com",
+      "url": "https://aditimohanty.com/"
+    }
+  ]
 }
